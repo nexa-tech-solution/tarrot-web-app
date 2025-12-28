@@ -9,7 +9,7 @@ const OnboardingPage: React.FC = () => {
 
   const s = getThemeStyles(theme);
   return (
-    <div className="relative z-50 flex flex-col h-screen animate-fade-in p-8 md:max-w-2xl md:mx-auto md:justify-center">
+    <div className="relative z-50 flex flex-col h-screen animate-fade-in p-3 md:max-w-2xl md:mx-auto md:justify-center">
       <div className="flex-1 flex flex-col justify-center">
         <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-2xl shadow-indigo-500/20 mb-8 mx-auto md:mx-0">
           <Sparkles className="w-10 h-10 text-white" />
