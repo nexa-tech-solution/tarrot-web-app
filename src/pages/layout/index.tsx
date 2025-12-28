@@ -16,7 +16,7 @@ const Layout = () => {
         className={`
         relative w-full h-full 
         md:w-full md:h-screen md:rounded-0 md:border-0 md:flex md:flex-row
-        max-w-[390px] h-[844px] md:max-w-none md:max-h-none
+        md:max-w-none md:max-h-none
         ${s.bg}
         shadow-2xl md:shadow-none overflow-hidden flex flex-col transition-all duration-700
       `}

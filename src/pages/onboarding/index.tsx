@@ -2,18 +2,16 @@ import { getThemeStyles } from "@/themes/index.theme";
 import { useAppStore } from "@/zustand/index.zustand";
 import { ArrowRight, Calendar, Sparkles, User } from "lucide-react";
 import { useNavigate } from "react-router";
-
+import Icon from "@/assets/icon.png";
 const OnboardingPage: React.FC = () => {
   const navigate = useNavigate();
   const { theme, userProfile, updateUserProfile } = useAppStore();
 
   const s = getThemeStyles(theme);
   return (
-    <div className="relative z-50 flex flex-col h-screen animate-fade-in p-3 md:max-w-2xl md:mx-auto md:justify-center">
+    <div className="relative z-50 flex flex-col h-screen animate-fade-in p-6 md:max-w-2xl md:mx-auto md:justify-center">
       <div className="flex-1 flex flex-col justify-center">
-        <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-2xl shadow-indigo-500/20 mb-8 mx-auto md:mx-0">
-          <Sparkles className="w-10 h-10 text-white" />
-        </div>
+        <img src={Icon} className="w-20 h-20 mb-8 mx-auto md:mx-0" />
         <h1
           className={`text-4xl md:text-5xl font-serif font-bold ${s.text} mb-4 leading-tight`}
         >

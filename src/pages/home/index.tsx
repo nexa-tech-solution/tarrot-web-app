@@ -15,8 +15,8 @@ const HomePage: React.FC = () => {
   const s = getThemeStyles(theme);
 
   return (
-    <div className="flex flex-col h-full animate-fade-in pb-[80px] md:pb-0">
-      <div className="pt-12 md:pt-10 pb-4 px-6 md:px-10 flex justify-between items-end max-w-[1600px] mx-auto w-full">
+    <div className="flex flex-col px-6 h-full animate-fade-in pb-[80px] md:pb-0">
+      <div className="pt-12 md:pt-10 pb-4 md:px-10 flex justify-between items-end max-w-[1600px] mx-auto w-full">
         <div>
           <div
             className={`flex items-center gap-2 ${
@@ -48,7 +48,7 @@ const HomePage: React.FC = () => {
         </button>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-6 md:px-10 custom-scrollbar pt-2 max-w-[1600px] mx-auto w-full">
+      <div className="flex-1 md:px-10 custom-scrollbar pt-2 max-w-[1600px] mx-auto w-full">
         <div className="md:grid md:grid-cols-12 md:gap-8">
           <div className="md:col-span-8 lg:col-span-8 flex flex-col gap-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">

@@ -426,7 +426,7 @@ const ReadingPage: React.FC = () => {
                     ? "bg-slate-900/95 shadow-[0_-10px_60px_-15px_rgba(0,0,0,0.9)]"
                     : "bg-white/95 shadow-[0_-10px_40px_-10px_rgba(0,0,0,0.1)]"
                 }
-                max-h-[85vh] overflow-y-auto custom-scrollbar
+                max-h-[85vh] custom-scrollbar
               `}
             >
               {/* Mobile Handle / Close Indicator */}

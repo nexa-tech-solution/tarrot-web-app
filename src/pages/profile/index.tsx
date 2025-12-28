@@ -24,14 +24,12 @@ const ProfilePage: React.FC = () => {
   return (
     <div className="flex flex-col h-full animate-fade-in pb-[80px] md:pb-0 max-w-6xl mx-auto w-full px-6">
       <div
-        className={`pt-12 md:pt-10 px-6 pb-6 text-center ${
-          isDark
-            ? "bg-gradient-to-b from-indigo-900/10 to-transparent"
-            : "bg-gradient-to-b from-indigo-100/30 to-transparent"
+        className={`pt-12 md:pt-10 px-6 pb-6 text-center bg-gradient-to-b to-transparent ${
+          isDark ? " from-indigo-900/10 to-transparent" : " from-indigo-100/30 "
         }`}
       >
         <div
-          className={`mx-auto w-full max-w-[340px] md:max-w-[400px] aspect-[1.6] rounded-3xl ${
+          className={`mx-auto w-full md:max-w-[400px] rounded-3xl ${
             isDark
               ? "bg-[#1a1a24] border-white/10"
               : "bg-white border-stone-200"

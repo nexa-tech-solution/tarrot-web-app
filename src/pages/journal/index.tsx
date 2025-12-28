@@ -27,7 +27,7 @@ const JournalPage: React.FC = () => {
           Lưu giữ những thông điệp từ vũ trụ
         </p>
       </div>
-      <div className="flex-1 overflow-y-auto py-8 custom-scrollbar">
+      <div className="flex-1 py-8 custom-scrollbar">
         <div
           className={`space-y-12 relative before:absolute before:left-[19px] before:top-0 before:bottom-0 before:w-[1px] ${
             isDark

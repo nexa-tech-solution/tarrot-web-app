@@ -2,6 +2,7 @@ import { getThemeStyles } from "@/themes/index.theme";
 import type { TabId } from "@/types/index.type";
 import { useAppStore } from "@/zustand/index.zustand";
 import { BookOpen, Crown, Home, Sparkles, User } from "lucide-react";
+import { useEffect, useRef } from "react";
 import { Outlet, useNavigate } from "react-router";
 
 const MainLayout = () => {
@@ -9,13 +10,17 @@ const MainLayout = () => {
   const { theme, activeTab, setActiveTab } = useAppStore(); // Use stable state reference
   const s = getThemeStyles(theme);
   const isDark = theme === "dark";
-
+  const scrollRef = useRef<HTMLDivElement>(null);
   const tabs = [
     { id: "home", icon: <Home size={22} />, label: "Home" },
     { id: "journal", icon: <BookOpen size={22} />, label: "Journal" },
     { id: "profile", icon: <User size={22} />, label: "Profile" },
   ];
-
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
   return (
     <>
       {/* MOBILE BOTTOM BAR */}
@@ -152,7 +157,10 @@ const MainLayout = () => {
       </div>
 
       {/* CONTENT WRAPPER */}
-      <div className="flex-1 relative z-10 flex flex-col md:ml-[280px] transition-all duration-500 h-full overflow-hidden">
+      <div
+        ref={scrollRef}
+        className="flex-1 relative z-10 flex flex-col md:ml-[280px] transition-all duration-500 h-full overflow-y-auto"
+      >
         <Outlet />
       </div>
     </>
