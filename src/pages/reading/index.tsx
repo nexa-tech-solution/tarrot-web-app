@@ -138,7 +138,7 @@ const ReadingPage: React.FC = () => {
             Reading
           </span>
           <span
-            className={`text-sm font-serif font-bold tracking-wide ${
+            className={`text-2xl font-serif font-bold tracking-wide ${
               isDark ? "text-white" : "text-slate-900"
             }`}
           >
@@ -483,7 +483,7 @@ const ReadingPage: React.FC = () => {
                   </div>
                   {/* Astrology Badge */}
                   <div
-                    className={`flex items-center gap-1.5 px-3 py-1 rounded-full border text-[10px] font-bold uppercase ${
+                    className={`flex items-center gap-1.5 px-3 py-1 rounded-full border text-[12px] font-bold uppercase ${
                       isDark
                         ? "bg-white/5 border-white/10 text-indigo-300"
                         : "bg-white border-slate-200 text-indigo-600"
