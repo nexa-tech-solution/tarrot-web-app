@@ -1,6 +1,6 @@
 import { getThemeStyles } from "@/themes/index.theme";
 import { useAppStore } from "@/zustand/index.zustand";
-import { ArrowRight, Calendar, Sparkles, User } from "lucide-react";
+import { ArrowRight, Calendar, User } from "lucide-react";
 import { useNavigate } from "react-router";
 import Icon from "@/assets/icon.png";
 const OnboardingPage: React.FC = () => {
