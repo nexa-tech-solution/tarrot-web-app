@@ -17,4 +17,12 @@ export const getThemeStyles = (mode: ThemeMode): ThemeStyles => ({
       : "from-indigo-400 via-purple-400 to-indigo-400",
   sidebarBorder:
     mode === "dark" ? "border-r border-white/5" : "border-r border-stone-200",
+  chipActive:
+    mode === "dark"
+      ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/20"
+      : "bg-indigo-600 text-white",
+  chipInactive:
+    mode === "dark"
+      ? "bg-white/5 text-stone-400 hover:bg-white/10"
+      : "bg-stone-200 text-stone-600 hover:bg-stone-300",
 });

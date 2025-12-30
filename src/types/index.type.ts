@@ -67,6 +67,8 @@ export type ThemeStyles = {
   inputBg: string;
   accentGradient: string;
   sidebarBorder: string;
+  chipActive: string;
+  chipInactive: string;
 };
 export type ThemeProps = {
   theme: ThemeMode;

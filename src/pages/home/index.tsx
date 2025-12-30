@@ -3,7 +3,7 @@ import MoonWidget from "@/components/moon-widget";
 import { SPREAD_TYPES } from "@/data/index.data";
 import { getThemeStyles } from "@/themes/index.theme";
 import { useAppStore } from "@/zustand/index.zustand";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen, Search, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router";
 
 const HomePage: React.FC = () => {
@@ -54,6 +54,61 @@ const HomePage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
               <MoonWidget />
               <DailyInsights />
+            </div>
+            <div
+              onClick={() => navigate("/dictionary")}
+              className={`w-full p-1 rounded-[2rem] border ${s.cardBorder} ${s.cardBg} backdrop-blur-md cursor-pointer group transition-all duration-500 hover:shadow-xl hover:-translate-y-1`}
+            >
+              <div
+                className={`relative overflow-hidden rounded-[1.8rem] p-5 md:p-6 flex flex-col md:flex-row items-start md:items-center gap-5 md:gap-8`}
+              >
+                {/* Background Decor */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-purple-500/10 via-indigo-500/5 to-transparent rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+
+                {/* Icon Box */}
+                <div
+                  className={`w-14 h-14 rounded-2xl flex-shrink-0 flex items-center justify-center shadow-inner ${
+                    isDark
+                      ? "bg-indigo-500/20 text-indigo-300"
+                      : "bg-indigo-100 text-indigo-600"
+                  }`}
+                >
+                  <BookOpen size={28} />
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 z-10">
+                  <h3
+                    className={`${s.text} text-lg md:text-xl font-serif font-bold mb-1`}
+                  >
+                    Từ điển Tarot
+                  </h3>
+                  <p className={`${s.textSub} text-xs md:text-sm mb-4 md:mb-0`}>
+                    Tra cứu ý nghĩa xuôi, ngược và biểu tượng của 78 lá bài.
+                  </p>
+                </div>
+
+                {/* Fake Search Bar Visual */}
+                <div
+                  className={`w-full md:w-auto min-w-[200px] py-3 px-4 rounded-xl flex items-center gap-3 border transition-colors ${
+                    isDark
+                      ? "bg-black/20 border-white/5 group-hover:bg-black/30"
+                      : "bg-white/50 border-stone-200 group-hover:bg-white"
+                  }`}
+                >
+                  <Search
+                    size={16}
+                    className={isDark ? "text-white/40" : "text-stone-400"}
+                  />
+                  <span
+                    className={`text-xs ${
+                      isDark ? "text-white/40" : "text-stone-400"
+                    }`}
+                  >
+                    Tìm kiếm lá bài...
+                  </span>
+                </div>
+              </div>
             </div>
             <div className="mt-4 md:mt-6">
               <div className="flex items-center justify-between mb-4 md:mb-6">

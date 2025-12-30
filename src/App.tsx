@@ -6,6 +6,7 @@ import ProfilePage from "./pages/profile";
 import ReadingPage from "./pages/reading";
 import { BrowserRouter, Route, Routes } from "react-router";
 import Layout from "./pages/layout";
+import DictionaryPage from "./pages/dictionary";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="profile" element={<ProfilePage />} />
           </Route>
           <Route path="/reading" element={<ReadingPage />} />
+          <Route path="/dictionary" element={<DictionaryPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
