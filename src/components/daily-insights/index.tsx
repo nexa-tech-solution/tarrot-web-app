@@ -1,31 +1,52 @@
+import React, { useMemo } from "react";
 import { getThemeStyles } from "@/themes/index.theme";
 import { useAppStore } from "@/zustand/index.zustand";
 import { Sparkles, Sun, Zap } from "lucide-react";
+import { getDailyNumber, getMysticAttributes } from "@/utils/mysticHelper"; // Import tiện ích
 
 const DailyInsights: React.FC = () => {
-  const theme = useAppStore((state) => state.theme);
+  const { theme, userProfile } = useAppStore(); // Lấy userProfile từ store
   const isDark = theme === "dark";
   const s = getThemeStyles(theme);
+
+  // Tính toán chỉ số hàng ngày dựa trên Ngày sinh
+  const insights = useMemo(() => {
+    // Fallback nếu chưa có ngày sinh (mặc định lấy ngày 1/1)
+    const day = userProfile.dob?.day || "01";
+    const month = userProfile.dob?.month || "01";
+
+    const luckyNumber = getDailyNumber(day, month);
+    const attributes = getMysticAttributes(luckyNumber);
+
+    return {
+      luckyNumber:
+        luckyNumber < 10 ? `0${luckyNumber}` : luckyNumber.toString(),
+      luckyColor: attributes.color,
+      goldenHour: attributes.hour,
+    };
+  }, [userProfile.dob]);
+
   const items = [
     {
       label: "Số may mắn",
-      val: "07",
+      val: insights.luckyNumber,
       color: isDark ? "text-emerald-300" : "text-emerald-600",
       icon: <Zap size={14} />,
     },
     {
       label: "Màu đạo",
-      val: "Tím",
+      val: insights.luckyColor,
       color: isDark ? "text-purple-300" : "text-purple-600",
       icon: <Sparkles size={14} />,
     },
     {
       label: "Giờ vàng",
-      val: "9h-11h",
+      val: insights.goldenHour,
       color: isDark ? "text-amber-300" : "text-amber-600",
       icon: <Sun size={14} />,
     },
   ];
+
   return (
     <div className="grid grid-cols-3 gap-4 h-full">
       {items.map((item, i) => (

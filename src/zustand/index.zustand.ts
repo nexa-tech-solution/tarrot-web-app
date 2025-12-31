@@ -8,6 +8,7 @@ import type {
   UserProfile,
   JournalEntry, // Import type mới
 } from "@/types/index.type";
+import { getLifePathNumber, getZodiacSign } from "@/utils/mysticHelper";
 
 type AppState = {
   theme: ThemeMode;
@@ -56,9 +57,40 @@ export const useAppStore = create<AppState>()(
       toggleTheme: () =>
         set((state) => ({ theme: state.theme === "dark" ? "light" : "dark" })),
       setActiveTab: (tab) => set({ activeTab: tab }),
-      setUserProfile: (profile) => set({ userProfile: profile }),
+      setUserProfile: (profile) =>
+        set(() => {
+          // Tự động tính toán lại khi set profile mới
+          const zodiac = getZodiacSign(profile.dob.day, profile.dob.month);
+          const lifePathNumber = getLifePathNumber(
+            profile.dob.day,
+            profile.dob.month,
+            profile.dob.year
+          );
+
+          return {
+            userProfile: { ...profile, zodiac, lifePathNumber },
+          };
+        }),
       updateUserProfile: (partial) =>
-        set((state) => ({ userProfile: { ...state.userProfile, ...partial } })),
+        set((state) => {
+          // Merge dữ liệu cũ và mới
+          const newProfile = { ...state.userProfile, ...partial };
+
+          // Nếu người dùng có cập nhật ngày sinh (partial chứa dob) -> Tính lại
+          if (partial.dob) {
+            newProfile.zodiac = getZodiacSign(
+              newProfile.dob.day,
+              newProfile.dob.month
+            );
+            newProfile.lifePathNumber = getLifePathNumber(
+              newProfile.dob.day,
+              newProfile.dob.month,
+              newProfile.dob.year
+            );
+          }
+
+          return { userProfile: newProfile };
+        }),
       setSelectedSpread: (spread) => set({ selectedSpread: spread }),
 
       // --- Logic thêm Journal ---
