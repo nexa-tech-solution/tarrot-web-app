@@ -230,7 +230,7 @@ const JournalPage: React.FC = () => {
       {/* Content Area */}
       <div className="relative z-10 flex-1 max-w-5xl mx-auto w-full px-4 md:px-10">
         {journal.length === 0 ? (
-          <EmptyJournal onNavigate={() => navigate("/")} />
+          <EmptyJournal onNavigate={() => navigate("/main/home")} />
         ) : (
           <div className="relative py-8">
             {/* Timeline Line */}

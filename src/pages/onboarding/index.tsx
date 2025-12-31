@@ -239,7 +239,7 @@ const OnboardingPage: React.FC = () => {
           onClick={handleStart}
           className="w-full md:w-auto md:px-12 h-14 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-sm uppercase tracking-widest shadow-[0_0_30px_-5px_rgba(99,102,241,0.5)] active:scale-95 transition-all flex items-center justify-center gap-3 group hover:brightness-110"
         >
-          <span>Khởi tạo hồ sơ</span>
+          <span>Bắt đầu hành trình</span>
           <ArrowRight
             size={18}
             className="group-hover:translate-x-1 transition-transform"

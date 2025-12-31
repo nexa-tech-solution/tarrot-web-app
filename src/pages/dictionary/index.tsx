@@ -24,11 +24,11 @@ import { useNavigate } from "react-router";
 // --- CONSTANTS ---
 const FILTERS = [
   { id: "all", label: "Tất cả" },
-  { id: "major", label: "Major Arcana" },
-  { id: "wands", label: "Wands" },
-  { id: "cups", label: "Cups" },
-  { id: "swords", label: "Swords" },
-  { id: "pentacles", label: "Pentacles" },
+  { id: "major", label: "Ẩn Chính" },
+  { id: "wands", label: "Bộ Gậy" },
+  { id: "cups", label: "Bộ Cốc" },
+  { id: "swords", label: "Bộ Kiếm" },
+  { id: "pentacles", label: "Bộ Tiền" },
 ];
 
 const TABS = [

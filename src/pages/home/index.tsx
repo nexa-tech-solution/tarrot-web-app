@@ -245,13 +245,13 @@ const HomePage: React.FC = () => {
                 >
                   Trải bài phổ biến
                 </h3>
-                <button
+                {/* <button
                   className={`text-[10px] font-bold uppercase tracking-wider ${
                     isDark ? "text-indigo-400" : "text-indigo-600"
                   } hover:underline`}
                 >
                   Xem tất cả
-                </button>
+                </button> */}
               </div>
 
               <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 pb-6">

@@ -12,15 +12,24 @@ const MainLayout = () => {
   const isDark = theme === "dark";
   const scrollRef = useRef<HTMLDivElement>(null);
   const tabs = [
-    { id: "home", icon: <Home size={22} />, label: "Home" },
-    { id: "journal", icon: <BookOpen size={22} />, label: "Journal" },
-    { id: "profile", icon: <User size={22} />, label: "Profile" },
+    { id: "home", icon: <Home size={22} />, label: "Trang chủ" },
+    { id: "journal", icon: <BookOpen size={22} />, label: "Hành trình" },
+    { id: "profile", icon: <User size={22} />, label: "Cá nhân" },
   ];
   useEffect(() => {
+    // Reset Scroll
     if (scrollRef.current) {
       scrollRef.current.scrollTo(0, 0);
     }
-  }, [location.pathname]);
+
+    // Sync Active Tab based on URL
+    // Checks if the current path contains the tab ID (e.g., "/main/journal" contains "journal")
+    const currentTab = tabs.find((tab) => location.pathname.includes(tab.id));
+
+    if (currentTab && currentTab.id !== activeTab) {
+      setActiveTab(currentTab.id as TabId);
+    }
+  }, [location.pathname, setActiveTab, activeTab]);
   return (
     <>
       {/* MOBILE BOTTOM BAR */}
