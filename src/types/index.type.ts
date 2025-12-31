@@ -1,3 +1,5 @@
+import type { LucideProps } from "lucide-react";
+
 export type ThemeMode = "light" | "dark";
 export type TabId = "home" | "journal" | "profile";
 export type ScreenId = "onboarding" | "home" | "reading";
@@ -40,18 +42,23 @@ export type SpreadType = {
   id: string;
   title: string;
   subtitle: string;
-  icon: React.ReactNode;
+  icon: React.ForwardRefExoticComponent<
+    Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>
+  >;
+  bg: string;
+  border: string;
+  dataKey: string;
   color: string;
-  accent: string;
   question: string;
 };
 
 export type JournalEntry = {
-  id: number;
+  id: string;
   date: string;
+  cardId: string;
   spreadId: string;
-  cardId: number;
   note: string;
+  timestamp: number; // Dùng để sort nếu cần
 };
 
 export type ThemeStyles = {
