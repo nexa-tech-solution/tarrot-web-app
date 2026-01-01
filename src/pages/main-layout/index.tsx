@@ -4,7 +4,7 @@ import { useAppStore } from "@/zustand/index.zustand";
 import { BookOpen, Crown, Home, Sparkles, User } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Outlet, useNavigate } from "react-router";
-
+import Icon from "@/assets/icon.png";
 const MainLayout = () => {
   const navigate = useNavigate();
   const { theme, activeTab, setActiveTab } = useAppStore(); // Use stable state reference
@@ -79,9 +79,7 @@ const MainLayout = () => {
           <h1
             className={`text-3xl font-serif font-bold ${s.text} tracking-wider flex items-center gap-3`}
           >
-            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-200 to-amber-500 flex items-center justify-center shadow-lg shadow-amber-500/20">
-              <Sparkles className="text-black w-5 h-5" fill="black" />
-            </div>
+            <img className="w-10 h-10 rounded-full" src={Icon} />
             Mystic
           </h1>
           <p
