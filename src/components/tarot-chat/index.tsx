@@ -265,7 +265,7 @@ const TarotChat: React.FC = () => {
                 </div>
                 {/* HIỂN THỊ TRẠNG THÁI MIỄN PHÍ */}
                 {isFreeTurn && (
-                  <div className="absolute -top-2 -right-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg flex items-center gap-1 animate-bounce">
+                  <div className="absolute top-4 -right-36 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg flex items-center gap-1 animate-bounce">
                     <Gift size={10} />
                     <span>Hôm nay miễn phí</span>
                   </div>
