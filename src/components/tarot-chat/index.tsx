@@ -9,6 +9,7 @@ import {
   Star,
   Compass,
   ArrowLeft,
+  Gift, // Icon quà tặng cho lượt free
 } from "lucide-react";
 import type { ReadingSession } from "@/types/index.type";
 import { getRandomCards, type TarrotCard } from "@/data/tarrot.data";
@@ -16,10 +17,12 @@ import { getTarotInterpretation } from "@/utils/geminiHelper";
 import CardItem from "../card-item";
 import { useNavigate } from "react-router";
 
+// Tên key lưu trong LocalStorage
+const STORAGE_KEY = "tarot_daily_usage";
+
 const TarotChat: React.FC = () => {
   const navigate = useNavigate();
-  const [status, setStatus] = useState(-1); // 0: Ready Load Ads , 1: Loaded Ads, -1: Not Ready Load Ads
-
+  const [status, setStatus] = useState(-1);
   const [session, setSession] = useState<ReadingSession>({
     question: "",
     selectedCards: [],
@@ -29,7 +32,54 @@ const TarotChat: React.FC = () => {
   const [inputText, setInputText] = useState("");
   const [drawnIndices, setDrawnIndices] = useState<number[]>([]);
   const [adProgress, setAdProgress] = useState(0);
+  const [isFreeTurn, setIsFreeTurn] = useState(false); // State để check xem có đang free không
+
   const chatEndRef = useRef<HTMLDivElement>(null);
+
+  // --- LOGIC KIỂM TRA LƯỢT MIỄN PHÍ ---
+  const checkDailyFreeTurn = () => {
+    try {
+      const today = new Date().toDateString(); // Lấy ngày hiện tại (VD: Mon Jan 06 2026)
+      const data = localStorage.getItem(STORAGE_KEY);
+
+      if (!data) return true; // Chưa có dữ liệu -> Là lần đầu -> Free
+
+      const parsed = JSON.parse(data);
+      if (parsed.date !== today) return true; // Dữ liệu cũ (ngày khác) -> Reset -> Free
+
+      // Nếu đã có dữ liệu ngày hôm nay, kiểm tra số lượt (ở đây < 1 là còn free)
+      return parsed.count < 1;
+    } catch (e) {
+      return true; // Lỗi đọc storage thì cho free luôn để tránh bug
+    }
+  };
+
+  const incrementDailyUsage = () => {
+    const today = new Date().toDateString();
+    const data = localStorage.getItem(STORAGE_KEY);
+    let count = 0;
+
+    if (data) {
+      const parsed = JSON.parse(data);
+      if (parsed.date === today) {
+        count = parsed.count;
+      }
+    }
+
+    // Lưu lại: Ngày hôm nay, số lượt cũ + 1
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ date: today, count: count + 1 })
+    );
+    // Cập nhật lại state UI
+    setIsFreeTurn(false);
+  };
+  // -------------------------------------
+
+  // Kiểm tra trạng thái Free khi component mount
+  useEffect(() => {
+    setIsFreeTurn(checkDailyFreeTurn());
+  }, []);
 
   const scrollToBottom = () => {
     if (session.status === "interpreting" || session.status === "finished") {
@@ -64,10 +114,34 @@ const TarotChat: React.FC = () => {
     setDrawnIndices(newDrawn);
 
     if (newDrawn.length === 3) {
+      // Logic xử lý khi rút đủ 3 lá
       setTimeout(() => {
-        setSession((prev) => ({ ...prev, status: "watching_ad" }));
+        const canSkipAd = checkDailyFreeTurn();
+
+        if (canSkipAd) {
+          // NẾU ĐƯỢC FREE: Chạy thẳng vào giải bài, không qua quảng cáo
+          handleReadingStart(true);
+        } else {
+          // NẾU KHÔNG FREE: Chuyển sang màn hình xem quảng cáo
+          setSession((prev) => ({ ...prev, status: "watching_ad" }));
+        }
       }, 600);
     }
+  };
+
+  // Hàm xử lý chung để bắt đầu giải bài (gọi khi Free hoặc khi xem xong Ads)
+  const handleReadingStart = (isFree: boolean) => {
+    const actualCards = getRandomCards(3);
+    setSession((prev) => ({
+      ...prev,
+      selectedCards: actualCards,
+      status: "interpreting",
+    }));
+
+    interpretReading(actualCards);
+
+    // Luôn tăng biến đếm lượt sử dụng (để lần sau tính phí)
+    incrementDailyUsage();
   };
 
   const startAd = () => {
@@ -78,6 +152,7 @@ const TarotChat: React.FC = () => {
       })
     );
   };
+
   const startProgress = () => {
     let progress = 0;
     const interval = setInterval(() => {
@@ -89,17 +164,14 @@ const TarotChat: React.FC = () => {
       }
     }, 40);
   };
+
   const handleBack = () => {
     navigate(-1);
   };
+
   const handleAdComplete = () => {
-    const actualCards = getRandomCards(3);
-    setSession((prev) => ({
-      ...prev,
-      selectedCards: actualCards,
-      status: "interpreting",
-    }));
-    interpretReading(actualCards);
+    // Xem quảng cáo xong -> Gọi hàm bắt đầu giải bài (tham số false vì không phải free skip)
+    handleReadingStart(false);
   };
 
   const interpretReading = async (cards: TarrotCard[]) => {
@@ -112,6 +184,9 @@ const TarotChat: React.FC = () => {
   };
 
   const resetSession = () => {
+    // Kiểm tra lại xem sau lượt vừa rồi thì còn được free không (thường là không)
+    setIsFreeTurn(checkDailyFreeTurn());
+
     setSession({
       question: "",
       selectedCards: [],
@@ -122,6 +197,7 @@ const TarotChat: React.FC = () => {
     setAdProgress(0);
     setInputText("");
   };
+
   useEffect(() => {
     if (status === 1) {
       startProgress();
@@ -129,13 +205,11 @@ const TarotChat: React.FC = () => {
       return;
     }
   }, [status]);
+
   useEffect(() => {
     const handleNativeMessage = (event: any) => {
       try {
-        // Depending on platform/version, you might need to check the origin
-        // But usually, just parse event.data
         const data = JSON.parse(event.data);
-
         if (data.type === "LOAD_ADS_COMPLETE") {
           setStatus(1);
         }
@@ -146,19 +220,19 @@ const TarotChat: React.FC = () => {
           setStatus(-1);
         }
       } catch (err) {
-        // Ignore non-JSON messages (some libraries inject their own messages)
+        // Ignore non-JSON messages
       }
     };
 
-    // Add Listener
-    window.addEventListener("message", handleNativeMessage); // For Android
-    document.addEventListener("message", handleNativeMessage); // For iOS legacy support
+    window.addEventListener("message", handleNativeMessage);
+    document.addEventListener("message", handleNativeMessage);
 
     return () => {
       window.removeEventListener("message", handleNativeMessage);
       document.removeEventListener("message", handleNativeMessage);
     };
   }, []);
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-6 md:py-12 min-h-screen flex flex-col">
       {/* Header */}
@@ -189,6 +263,13 @@ const TarotChat: React.FC = () => {
                 <div className="relative w-16 h-16 md:w-24 md:h-24 bg-gradient-to-br from-indigo-900 to-slate-900 rounded-full flex items-center justify-center border border-indigo-500/30 animate-float">
                   <Compass size={40} className="text-indigo-400" />
                 </div>
+                {/* HIỂN THỊ TRẠNG THÁI MIỄN PHÍ */}
+                {isFreeTurn && (
+                  <div className="absolute -top-2 -right-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg flex items-center gap-1 animate-bounce">
+                    <Gift size={10} />
+                    <span>Hôm nay miễn phí</span>
+                  </div>
+                )}
               </div>
               <div className="max-w-md">
                 <h2 className="text-xl md:text-2xl font-serif font-semibold mb-3 text-white">
@@ -295,8 +376,8 @@ const TarotChat: React.FC = () => {
                   Mở khóa lời tiên tri
                 </h3>
                 <p className="text-slate-400 text-sm mb-8 leading-relaxed">
-                  Cánh cửa tâm linh đang mở ra. Hãy dành một chút thời gian để
-                  cân bằng năng lượng trước khi nhận lời giải.
+                  Bạn đã dùng hết lượt miễn phí hôm nay. Hãy xem một quảng cáo
+                  ngắn để tiếp tục nhận thông điệp.
                 </p>
 
                 {adProgress === 0 ? (
@@ -305,7 +386,7 @@ const TarotChat: React.FC = () => {
                     className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white py-4 rounded-2xl font-bold transition-all shadow-xl shadow-indigo-600/20 transform active:scale-95"
                   >
                     <PlayCircle size={20} />
-                    NHẬN THÔNG ĐIỆP
+                    XEM QUẢNG CÁO
                   </button>
                 ) : (
                   <div className="w-full space-y-4">
