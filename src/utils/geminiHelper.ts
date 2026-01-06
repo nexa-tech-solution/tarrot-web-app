@@ -1,6 +1,47 @@
 import type { TarrotCard } from "@/data/tarrot.data";
 import { GoogleGenAI } from "@google/genai";
+const TEXT_OUT_MODELS = [
+  "gemini-2.5-flash-lite",
+  "gemini-2.5-flash",
+  "gemini-3-flash",
+] as const;
 
+const generateWithFallback = async (
+  ai: GoogleGenAI,
+  prompt: string
+): Promise<string> => {
+  let lastError: unknown;
+
+  for (const model of TEXT_OUT_MODELS) {
+    try {
+      const response = await ai.models.generateContent({
+        model,
+        contents: prompt,
+      });
+
+      if (response.text) {
+        console.log(`✅ Gemini model used: ${model}`);
+        return response.text || "Vũ trụ đang tạm thời tĩnh lặng...";
+      }
+    } catch (error: any) {
+      lastError = error;
+
+      console.warn(`⚠️ Model ${model} failed, trying next...`, error?.message);
+
+      // Nếu lỗi không phải quota / unavailable → throw luôn
+      if (
+        !error?.message?.includes("quota") &&
+        !error?.message?.includes("limit") &&
+        !error?.message?.includes("unavailable")
+      ) {
+        throw error;
+      }
+    }
+  }
+
+  console.error("❌ All Gemini models failed", lastError);
+  throw lastError;
+};
 export const getTarotInterpretation = async (
   question: string,
   cards: TarrotCard[]
@@ -33,12 +74,7 @@ export const getTarotInterpretation = async (
   `;
 
   try {
-    const response = await ai.models.generateContent({
-      // model: "gemini-flash-lite-latest", // Sử dụng model Lite tiết kiệm nhất
-      model: "gemma-3-1b", // Sử dụng model Lite tiết kiệm nhất
-      contents: prompt,
-    });
-    return response.text || "Vũ trụ đang tạm thời tĩnh lặng...";
+    return await generateWithFallback(ai, prompt);
   } catch (error) {
     console.error("Gemini Error:", error);
     return "Có lỗi xảy ra khi kết nối với các vì sao. Hãy thử lại sau.";
