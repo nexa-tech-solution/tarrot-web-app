@@ -181,7 +181,7 @@ const TarotChat: React.FC = () => {
       </div>
 
       <div className="flex-1 bg-[#0f0f13]/60 border border-white/10 rounded-[2.5rem] backdrop-blur-2xl overflow-hidden flex flex-col shadow-[0_0_50px_rgba(79,70,229,0.1)] relative">
-        <div className="flex-1 p-5 md:p-10 overflow-y-auto custom-scrollbar">
+        <div className="flex-1 overflow-y-auto custom-scrollbar">
           {session.status === "asking" && (
             <div className="h-full flex flex-col items-center justify-center space-y-8 animate-fade-in text-center">
               <div className="relative">
