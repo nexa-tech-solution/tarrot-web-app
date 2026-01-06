@@ -34,7 +34,8 @@ export const getTarotInterpretation = async (
 
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-flash-lite-latest", // Sử dụng model Lite tiết kiệm nhất
+      // model: "gemini-flash-lite-latest", // Sử dụng model Lite tiết kiệm nhất
+      model: "gemma-3-1b", // Sử dụng model Lite tiết kiệm nhất
       contents: prompt,
     });
     return response.text || "Vũ trụ đang tạm thời tĩnh lặng...";
