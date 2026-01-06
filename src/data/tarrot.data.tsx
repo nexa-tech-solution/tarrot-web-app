@@ -4621,4 +4621,9 @@ const TARROT_CARDS: TarrotCard[] = RAW_DATA.map((card) => ({
     finance: pickRandom(card.meaning.finance),
   },
 }));
+export const getRandomCards = (count: number): TarrotCard[] => {
+  // Fix: Changed TARROT_CARDS to TAROT_CARDS to match the constant name
+  const shuffled = [...TARROT_CARDS].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+};
 export default TARROT_CARDS;

@@ -7,6 +7,7 @@ import ReadingPage from "./pages/reading";
 import { BrowserRouter, Route, Routes } from "react-router";
 import Layout from "./pages/layout";
 import DictionaryPage from "./pages/dictionary";
+import TarotChat from "./components/tarot-chat";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           </Route>
           <Route path="/reading" element={<ReadingPage />} />
           <Route path="/dictionary" element={<DictionaryPage />} />
+          <Route path="/chat-bot" element={<TarotChat />} />
         </Route>
       </Routes>
     </BrowserRouter>

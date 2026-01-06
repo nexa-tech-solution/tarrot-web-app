@@ -1,3 +1,4 @@
+import type { TarrotCard } from "@/data/tarrot.data";
 import type { LucideProps } from "lucide-react";
 
 export type ThemeMode = "light" | "dark";
@@ -80,3 +81,21 @@ export type ThemeStyles = {
 export type ThemeProps = {
   theme: ThemeMode;
 };
+
+export interface ReadingSession {
+  question: string;
+  selectedCards: TarrotCard[];
+  interpretation: string;
+  status:
+    | "asking"
+    | "shuffling"
+    | "drawing"
+    | "watching_ad"
+    | "interpreting"
+    | "finished";
+}
+
+export interface Message {
+  role: "user" | "model";
+  content: string;
+}

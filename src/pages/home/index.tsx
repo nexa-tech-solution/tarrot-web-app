@@ -10,6 +10,7 @@ import { SPREAD_TYPES } from "@/data/index.data";
 // Components
 import DailyInsights from "@/components/daily-insights";
 import MoonWidget from "@/components/moon-widget";
+import FloatingChatBot from "@/components/floating-chat-bot";
 
 // --- Sub-Components (Keep in same file or move to separate files) ---
 
@@ -295,6 +296,7 @@ const HomePage: React.FC = () => {
           </div>
         </div>
         <div className="h-8"></div>
+        <FloatingChatBot onClick={() => navigate("/chat-bot")} />
       </div>
     </div>
   );
