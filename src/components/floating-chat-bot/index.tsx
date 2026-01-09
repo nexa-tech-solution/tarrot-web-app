@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Sparkles, X, BrainCircuit } from "lucide-react";
+import { Trans, useTranslation } from "react-i18next";
 
 interface Props {
   onClick: () => void;
 }
 
 const FloatingChatBot: React.FC<Props> = ({ onClick }) => {
+  const { t } = useTranslation();
   const [showBubble, setShowBubble] = useState(false);
 
   useEffect(() => {
@@ -38,11 +40,13 @@ const FloatingChatBot: React.FC<Props> = ({ onClick }) => {
                 <Sparkles size={14} className="text-indigo-400 animate-pulse" />
               </div>
               <p className="text-[13px] text-indigo-100 font-medium leading-relaxed">
-                Khách nhân có muốn{" "}
-                <span className="text-indigo-400 font-bold">
-                  bói chuyên sâu
-                </span>{" "}
-                cùng Mystic Tarot không? ✨
+                <Trans
+                  i18nKey="home.chatbot_promo"
+                  // Số 1 ở đây tương ứng với thẻ <1> trong file JSON
+                  components={{
+                    1: <span className="text-indigo-400 font-bold" />,
+                  }}
+                />
               </p>
             </div>
 

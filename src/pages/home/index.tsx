@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useNavigate } from "react-router";
-import { ArrowRight, BookOpen, Search, Sparkles, Sun } from "lucide-react";
+import { ArrowRight, BookOpen, Search, Sparkles } from "lucide-react";
 
 // Store & Theme & Data
 import { useAppStore } from "@/zustand/index.zustand";
@@ -11,55 +11,56 @@ import { SPREAD_TYPES } from "@/data/index.data";
 import DailyInsights from "@/components/daily-insights";
 import MoonWidget from "@/components/moon-widget";
 import FloatingChatBot from "@/components/floating-chat-bot";
+import { useTranslation } from "react-i18next";
 
 // --- Sub-Components (Keep in same file or move to separate files) ---
 
 const UserHeader = ({
   name,
-  theme,
   onProfileClick,
   isDark,
   s,
 }: {
   name: string;
-  theme: string;
   onProfileClick: () => void;
   isDark: boolean;
   s: any;
-}) => (
-  <div className="pt-12 md:pt-10 pb-4 md:px-10 flex justify-between items-end max-w-[1600px] mx-auto w-full">
-    <div>
-      <div
-        className={`flex items-center gap-2 ${
-          isDark ? "text-amber-200/80" : "text-indigo-600/80"
-        } text-[10px] uppercase tracking-[0.2em] font-bold mb-2 animate-fade-in`}
-      >
-        <Sparkles size={12} /> <span>Chuỗi 3 ngày liên tục</span>
+}) => {
+  const { t } = useTranslation();
+  return (
+    <div className="pt-12 md:pt-10 pb-4 md:px-10 flex justify-between items-end max-w-[1600px] mx-auto w-full">
+      <div>
+        <div
+          className={`flex items-center gap-2 ${
+            isDark ? "text-amber-200/80" : "text-indigo-600/80"
+          } text-[10px] uppercase tracking-[0.2em] font-bold mb-2 animate-fade-in`}
+        >
+          <Sparkles size={12} /> <span>{t("home.streak")}</span>
+        </div>
+        <h1 className={`text-3xl md:text-4xl font-serif font-bold ${s.text}`}>
+          {t("home.hello")},{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
+            {name}
+          </span>
+        </h1>
       </div>
-      <h1 className={`text-3xl md:text-4xl font-serif font-bold ${s.text}`}>
-        Xin chào,{" "}
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
-          {name}
-        </span>
-      </h1>
+      <button
+        onClick={onProfileClick}
+        className={`w-10 h-10 md:w-12 md:h-12 rounded-full ${
+          isDark
+            ? "bg-white/5 border-white/10"
+            : "bg-white border-stone-200 shadow-sm"
+        } border flex items-center justify-center overflow-hidden hover:scale-105 transition-transform`}
+      >
+        <img
+          src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`}
+          alt="User"
+          className="w-full h-full opacity-90"
+        />
+      </button>
     </div>
-    <button
-      onClick={onProfileClick}
-      className={`w-10 h-10 md:w-12 md:h-12 rounded-full ${
-        isDark
-          ? "bg-white/5 border-white/10"
-          : "bg-white border-stone-200 shadow-sm"
-      } border flex items-center justify-center overflow-hidden hover:scale-105 transition-transform`}
-    >
-      <img
-        src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`}
-        alt="User"
-        className="w-full h-full opacity-90"
-      />
-    </button>
-  </div>
-);
-
+  );
+};
 const TarotDictionaryCard = ({
   onClick,
   isDark,
@@ -68,59 +69,62 @@ const TarotDictionaryCard = ({
   onClick: () => void;
   isDark: boolean;
   s: any;
-}) => (
-  <div
-    onClick={onClick}
-    className={`w-full p-1 rounded-[2rem] border ${s.cardBorder} ${s.cardBg} backdrop-blur-md cursor-pointer group transition-all duration-500 hover:shadow-xl hover:-translate-y-1`}
-  >
-    <div className="relative overflow-hidden rounded-[1.8rem] p-5 md:p-6 flex flex-col md:flex-row items-start md:items-center gap-5 md:gap-8">
-      {/* Background Decor */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-purple-500/10 via-indigo-500/5 to-transparent rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
+}) => {
+  const { t } = useTranslation();
+  return (
+    <div
+      onClick={onClick}
+      className={`w-full p-1 rounded-[2rem] border ${s.cardBorder} ${s.cardBg} backdrop-blur-md cursor-pointer group transition-all duration-500 hover:shadow-xl hover:-translate-y-1`}
+    >
+      <div className="relative overflow-hidden rounded-[1.8rem] p-5 md:p-6 flex flex-col md:flex-row items-start md:items-center gap-5 md:gap-8">
+        {/* Background Decor */}
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-purple-500/10 via-indigo-500/5 to-transparent rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
 
-      {/* Icon Box */}
-      <div
-        className={`w-14 h-14 rounded-2xl flex-shrink-0 flex items-center justify-center shadow-inner ${
-          isDark
-            ? "bg-indigo-500/20 text-indigo-300"
-            : "bg-indigo-100 text-indigo-600"
-        }`}
-      >
-        <BookOpen size={28} />
-      </div>
-
-      {/* Content */}
-      <div className="flex-1 z-10">
-        <h3
-          className={`${s.text} text-lg md:text-xl font-serif font-bold mb-1`}
+        {/* Icon Box */}
+        <div
+          className={`w-14 h-14 rounded-2xl flex-shrink-0 flex items-center justify-center shadow-inner ${
+            isDark
+              ? "bg-indigo-500/20 text-indigo-300"
+              : "bg-indigo-100 text-indigo-600"
+          }`}
         >
-          Từ điển Tarot
-        </h3>
-        <p className={`${s.textSub} text-xs md:text-sm mb-4 md:mb-0`}>
-          Tra cứu ý nghĩa xuôi, ngược và biểu tượng của 78 lá bài.
-        </p>
-      </div>
+          <BookOpen size={28} />
+        </div>
 
-      {/* Visual Search Bar */}
-      <div
-        className={`w-full md:w-auto min-w-[200px] py-3 px-4 rounded-xl flex items-center gap-3 border transition-colors ${
-          isDark
-            ? "bg-black/20 border-white/5 group-hover:bg-black/30"
-            : "bg-white/50 border-stone-200 group-hover:bg-white"
-        }`}
-      >
-        <Search
-          size={16}
-          className={isDark ? "text-white/40" : "text-stone-400"}
-        />
-        <span
-          className={`text-xs ${isDark ? "text-white/40" : "text-stone-400"}`}
+        {/* Content */}
+        <div className="flex-1 z-10">
+          <h3
+            className={`${s.text} text-lg md:text-xl font-serif font-bold mb-1`}
+          >
+            {t("home.dictionary_title")}
+          </h3>
+          <p className={`${s.textSub} text-xs md:text-sm mb-4 md:mb-0`}>
+            {t("home.dictionary_desc")}
+          </p>
+        </div>
+
+        {/* Visual Search Bar */}
+        <div
+          className={`w-full md:w-auto min-w-[200px] py-3 px-4 rounded-xl flex items-center gap-3 border transition-colors ${
+            isDark
+              ? "bg-black/20 border-white/5 group-hover:bg-black/30"
+              : "bg-white/50 border-stone-200 group-hover:bg-white"
+          }`}
         >
-          Tìm kiếm lá bài...
-        </span>
+          <Search
+            size={16}
+            className={isDark ? "text-white/40" : "text-stone-400"}
+          />
+          <span
+            className={`text-xs ${isDark ? "text-white/40" : "text-stone-400"}`}
+          >
+            {t("home.search_placeholder")}
+          </span>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const SpreadCard = ({
   spread,
@@ -135,6 +139,7 @@ const SpreadCard = ({
   isDark: boolean;
   s: any;
 }) => {
+  const { t } = useTranslation();
   // First item spans 2 columns on mobile/tablet for emphasis
   const gridSpanClass = index === 0 ? "col-span-2 lg:col-span-1" : "col-span-1";
 
@@ -183,7 +188,7 @@ const SpreadCard = ({
         <span
           className={`text-[9px] font-bold uppercase tracking-widest ${s.textSub}`}
         >
-          Bắt đầu
+          {t("home.start")}
         </span>
         <ArrowRight size={12} className={s.text} />
       </div>
@@ -195,7 +200,7 @@ const SpreadCard = ({
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   // Optimized Selectors
   const theme = useAppStore((state) => state.theme);
   const userProfile = useAppStore((state) => state.userProfile);
@@ -215,7 +220,6 @@ const HomePage: React.FC = () => {
       {/* 1. Header Section */}
       <UserHeader
         name={userProfile.name}
-        theme={theme}
         isDark={isDark}
         s={s}
         onProfileClick={() => setActiveTab("profile")}
@@ -244,7 +248,7 @@ const HomePage: React.FC = () => {
                 <h3
                   className={`text-xs md:text-sm font-bold ${s.sectionTitle} uppercase tracking-widest`}
                 >
-                  Trải bài phổ biến
+                  {t("home.popular_spreads")}
                 </h3>
                 {/* <button
                   className={`text-[10px] font-bold uppercase tracking-wider ${
@@ -266,31 +270,6 @@ const HomePage: React.FC = () => {
                     s={s}
                   />
                 ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column (Sidebar / Ads / Featured) */}
-          <div className="hidden md:block md:col-span-4 lg:col-span-4 space-y-6">
-            <div className="w-full aspect-[4/5] rounded-3xl overflow-hidden relative group cursor-pointer sticky top-6">
-              <img
-                src="https://images.unsplash.com/photo-1630342933732-c64dc240a23d?q=80&w=1000&auto=format&fit=crop"
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                alt="Crystals"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-8">
-                <span className="text-amber-400 text-[10px] font-bold uppercase tracking-widest mb-2">
-                  Bộ sưu tập mới
-                </span>
-                <h3 className="text-white font-serif font-bold text-2xl mb-2">
-                  Đá Thạch Anh Tím
-                </h3>
-                <p className="text-white/70 text-xs mb-4 line-clamp-2">
-                  Mang lại sự bình yên và trực giác nhạy bén cho người sở hữu.
-                </p>
-                <button className="w-full py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-white text-xs font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
-                  Khám phá ngay
-                </button>
               </div>
             </div>
           </div>

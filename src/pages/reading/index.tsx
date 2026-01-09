@@ -7,7 +7,6 @@ import {
   Sparkles,
   BookOpen,
   X,
-  ChevronUp,
   Stars,
   Compass,
   Moon,
@@ -15,6 +14,7 @@ import {
   Feather,
 } from "lucide-react";
 import type { TarrotCard } from "@/data/tarrot.data";
+import { useTranslation } from "react-i18next";
 
 // --- SUB-COMPONENTS CHO GỌN CODE ---
 
@@ -82,6 +82,7 @@ const MysticalButton = ({
 // --- MAIN COMPONENT ---
 
 const ReadingPage: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { selectedSpread, addJournalEntry } = useAppStore();
 
@@ -148,7 +149,8 @@ const ReadingPage: React.FC = () => {
         </button>
         <div className="text-center">
           <div className="flex items-center justify-center gap-2 text-[10px] font-bold text-indigo-300/80 uppercase tracking-[0.3em] mb-2">
-            <Compass size={12} className="animate-spin-slow" /> Phiên trải bài
+            <Compass size={12} className="animate-spin-slow" />{" "}
+            {t("reading.header_session")}
           </div>
           <h1 className="text-2xl md:text-3xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-100 via-purple-200 to-amber-100 drop-shadow-[0_2px_10px_rgba(168,85,247,0.4)]">
             {selectedSpread.title}
@@ -175,13 +177,13 @@ const ReadingPage: React.FC = () => {
               <selectedSpread.icon size={40} />
             </div>
             <h3 className="text-xl font-serif font-bold mb-4 text-indigo-100">
-              Câu hỏi định hướng
+              {t("reading.guidance_question")}
             </h3>
             <p className="text-indigo-200/80 text-lg leading-relaxed italic mb-10 font-light">
               "{selectedSpread.question}"
             </p>
             <MysticalButton onClick={handleDraw} icon={Stars}>
-              Kết nối năng lượng & Rút bài
+              {t("reading.btn_connect")}
             </MysticalButton>
           </div>
         )}
@@ -202,7 +204,7 @@ const ReadingPage: React.FC = () => {
               </div>
             </div>
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-200 animate-pulse">
-              Đang tập trung năng lượng...
+              {t("reading.status_shuffling")}
             </p>
           </div>
         )}
@@ -243,7 +245,7 @@ const ReadingPage: React.FC = () => {
               {!isFlipped && (
                 <div className="absolute bottom-8 left-0 right-0 text-center">
                   <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#d4af37]/70 animate-pulse">
-                    Chạm để mở khóa vận mệnh
+                    {t("reading.tap_reveal")}
                   </span>
                 </div>
               )}
@@ -293,7 +295,7 @@ const ReadingPage: React.FC = () => {
             icon={BookOpen}
             className="pl-6 pr-8"
           >
-            Xem Luận Giải Chi Tiết
+            {t("reading.btn_view_meaning")}
           </MysticalButton>
         </div>
       )}
@@ -338,7 +340,7 @@ const ReadingPage: React.FC = () => {
               <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
                 <StarIcon className="text-[#d4af37]" size={14} />
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#d4af37]">
-                  Lá bài định mệnh
+                  {t("reading.label_destiny_card")}
                 </p>
               </div>
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4 drop-shadow-lg">
@@ -369,7 +371,7 @@ const ReadingPage: React.FC = () => {
               {selectedSpread.icon && (
                 <selectedSpread.icon className="text-[#d4af37]" size={24} />
               )}
-              Thông điệp từ vũ trụ
+              {t("reading.label_universe_msg")}
             </h3>
             <div className="prose prose-invert prose-indigo max-w-none">
               <p className="text-indigo-100/90 text-lg leading-8 font-light whitespace-pre-line first-letter:text-3xl first-letter:font-serif first-letter:text-[#d4af37] first-letter:mr-1">
@@ -383,13 +385,13 @@ const ReadingPage: React.FC = () => {
           {/* === KHU VỰC GHI CHÚ & LƯU === */}
           <div className="mt-8 pt-6 border-t border-[#d4af37]/20">
             <label className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[#d4af37] mb-3">
-              <Feather size={12} /> Ghi chú cá nhân
+              <Feather size={12} /> {t("reading.label_note")}
             </label>
 
             <textarea
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              placeholder="Bạn cảm thấy thế nào về thông điệp này? Hãy viết lại để chiêm nghiệm sau này..."
+              placeholder={t("reading.placeholder_note")}
               className="w-full bg-[#090514]/50 border border-[#d4af37]/20 rounded-xl p-4 text-indigo-100 text-sm focus:outline-none focus:border-[#d4af37]/50 focus:bg-[#090514]/80 placeholder:text-indigo-400/30 resize-none h-24 transition-all mb-4"
             />
 
@@ -402,7 +404,7 @@ const ReadingPage: React.FC = () => {
                 }}
                 className="px-6 py-5 rounded-2xl border border-white/10 text-indigo-300 font-bold uppercase text-xs tracking-wider hover:bg-white/5 transition-colors"
               >
-                Đóng
+                {t("reading.btn_close")}
               </button>
 
               {/* Nút Lưu & Hoàn tất (Code bạn cần) */}
@@ -413,7 +415,7 @@ const ReadingPage: React.FC = () => {
                     addJournalEntry({
                       cardId: currentCard.id,
                       spreadId: selectedSpread.id,
-                      note: note.trim() || "Không có ghi chú", // Lưu ghi chú
+                      note: note.trim(), // Lưu ghi chú
                     });
                   }
 
@@ -429,7 +431,7 @@ const ReadingPage: React.FC = () => {
                 className="flex-1 py-5 bg-[#d4af37]/10 border border-[#d4af37]/30 rounded-2xl text-[#d4af37] font-bold uppercase text-xs tracking-[0.2em] hover:bg-[#d4af37]/20 transition-all active:scale-95 relative overflow-hidden group"
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">
-                  <Save size={14} /> Lưu & Kết thúc
+                  <Save size={14} /> {t("reading.btn_save")}
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#d4af37]/20 to-transparent -translate-x-full group-hover:animate-shimmer"></div>
               </button>

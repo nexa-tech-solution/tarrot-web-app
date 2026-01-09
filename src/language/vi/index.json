@@ -1,0 +1,223 @@
+{
+  "translation": {
+    "dictionary": {
+      "dictionary_title": "Từ điển Tarot",
+      "back": "Quay lại",
+      "search_placeholder": "Tìm lá bài (VD: The Fool, 2 ly...)",
+      "no_results": "Không tìm thấy lá bài phù hợp.",
+      "label_detail": "Chi tiết",
+      "label_advice": "Lời khuyên",
+      "default_advice": "Lắng nghe trực giác và đừng ngại bước ra khỏi vùng an toàn.",
+      "filters": {
+        "all": "Tất cả",
+        "major": "Ẩn Chính",
+        "wands": "Bộ Gậy",
+        "cups": "Bộ Cốc",
+        "swords": "Bộ Kiếm",
+        "pentacles": "Bộ Tiền"
+      },
+      "tabs": {
+        "overview": "Tổng quan",
+        "love": "Tình yêu",
+        "career": "Sự nghiệp",
+        "finance": "Tài chính"
+      },
+      "elements": {
+        "Fire": "Lửa",
+        "Water": "Nước",
+        "Air": "Khí",
+        "Earth": "Đất",
+        "Lửa": "Lửa",
+        "Nước": "Nước",
+        "Khí": "Khí",
+        "Đất": "Đất"
+      }
+    },
+    "home": {
+      "streak": "Chuỗi 3 ngày liên tục",
+      "hello": "Xin chào",
+      "popular_spreads": "Trải bài phổ biến",
+      "start": "Bắt đầu",
+      "dictionary_title": "Từ điển Tarot",
+      "dictionary_desc": "Tra cứu ý nghĩa xuôi, ngược và biểu tượng của 78 lá bài.",
+      "search_placeholder": "Tìm kiếm lá bài...",
+      "chatbot_promo": "Khách nhân có muốn <1>bói chuyên sâu</1> cùng Mystic Tarot không? ✨",
+      "insight_number": "Số may mắn",
+      "insight_color": "Màu may mắn",
+      "insight_hour": "Giờ vàng"
+    },
+    "colors": {
+      "Red": "Đỏ",
+      "White": "Trắng",
+      "Yellow": "Vàng",
+      "Green": "Xanh lá",
+      "Blue": "Xanh dương",
+      "Pink": "Hồng",
+      "Purple": "Tím",
+      "Gold": "Vàng kim",
+      "Terracotta": "Cam đất",
+      "Silver": "Bạc",
+      "Bronze": "Vàng đồng",
+      "Black": "Đen"
+    },
+    "moon": {
+      "month_prefix": "Tháng",
+      "label_phase": "Giai đoạn",
+      "phases": {
+        "New": "Trăng Non",
+        "WaxingCrescent": "Trăng Lưỡi Liềm",
+        "FirstQuarter": "Bán Nguyệt Đầu",
+        "WaxingGibbous": "Trăng Khuyết",
+        "Full": "Trăng Tròn",
+        "WaningGibbous": "Trăng Khuyết (Cuối)",
+        "LastQuarter": "Bán Nguyệt Cuối",
+        "WaningCrescent": "Trăng Tàn"
+      },
+      "advices": {
+        "New": "Khởi đầu mới, gieo hạt giống",
+        "WaxingCrescent": "Hành động, thu thập",
+        "FirstQuarter": "Điều chỉnh, vượt trở ngại",
+        "WaxingGibbous": "Hoàn thiện, tinh chỉnh",
+        "Full": "Thành tựu, biết ơn",
+        "WaningGibbous": "Chia sẻ, giải phóng",
+        "LastQuarter": "Buông bỏ, tha thứ",
+        "WaningCrescent": "Nghỉ ngơi, thanh tẩy"
+      }
+    },
+    "chat": {
+      "disclaimer": "Câu trả lời mang tính chất tham khảo",
+      "free_tag": "Hôm nay miễn phí",
+      "welcome_title": "Chào mừng bạn tới cõi huyền bí",
+      "welcome_desc": "Hãy nhắm mắt, hít thở sâu và đặt câu hỏi cho những lá bài.",
+      "input_placeholder": "Điều gì đang chờ đợi tôi?",
+      "connecting": "ĐANG KẾT NỐI VỚI CÁC VÌ SAO...",
+      "pick_cards": "Chọn lá bài dẫn lối",
+
+      "ad_title": "Mở khóa lời tiên tri",
+      "ad_desc": "Bạn đã dùng hết lượt miễn phí hôm nay. Hãy xem một quảng cáo ngắn để tiếp tục nhận thông điệp.",
+      "ad_btn": "XEM QUẢNG CÁO",
+      "ad_loading": "Vũ trụ đang truyền tin...",
+
+      "your_question": "CÂU HỎI CỦA BẠN",
+      "past": "Quá Khứ",
+      "present": "Hiện Tại",
+      "future": "Tương Lai",
+      "result_title": "Lời Giải Chi Tiết",
+      "result_by": "Bởi Trí Tuệ Mystic Tarot",
+      "finished": "Thông điệp từ vũ trụ đã hoàn tất",
+      "new_reading": "TRẢI BÀI MỚI"
+    },
+    "journal": {
+      "empty_title": "Cuốn nhật ký còn trống",
+      "empty_desc": "Hãy thực hiện trải bài đầu tiên để lắng nghe thông điệp từ vũ trụ và lưu giữ nó tại đây.",
+      "btn_reading": "Trải bài ngay",
+
+      "label_journey": "Hành trình tâm linh",
+      "title": "Nhật Ký Tarot",
+      "subtitle": "Nơi lưu giữ những lời thì thầm của vũ trụ và chiêm nghiệm của bản thân qua từng trải bài.",
+      "count_entries": "ghi chép",
+      "search": "Tìm kiếm...",
+
+      "delete_confirm": "Bạn có chắc muốn xóa ghi chép này?",
+      "delete_tooltip": "Xóa nhật ký",
+      "view_details": "Xem chi tiết",
+      "no_note_short": "Không có ghi chú",
+
+      "modal_reflection": "Chiêm nghiệm chi tiết",
+      "modal_no_note": "Không có ghi chú nào được lưu cho trải bài này."
+    },
+    "layout": {
+      "nav": {
+        "home": "Trang chủ",
+        "journal": "Hành trình",
+        "profile": "Cá nhân"
+      },
+      "sidebar": {
+        "app_name": "Mystic",
+        "subtitle": "Tarot Reader",
+        "premium_badge": "Premium",
+        "unlock_title": "Mở khóa toàn bộ",
+        "unlock_desc": "Truy cập không giới hạn các trải bài cao cấp."
+      }
+    },
+    "onboarding": {
+      "welcome_title": "Chào mừng đến với",
+      "app_name": "Mystic Tarot",
+      "welcome_desc": "Khám phá bản thân và lắng nghe thông điệp từ vũ trụ.",
+
+      "label_name": "Tên hiển thị",
+      "placeholder_name": "Nhập tên...",
+      "label_dob": "Ngày sinh",
+      "label_gender": "Giới tính",
+
+      "gender_male": "Nam",
+      "gender_female": "Nữ",
+      "gender_other": "Khác",
+
+      "btn_start": "Bắt đầu hành trình",
+
+      "err_name": "Vui lòng nhập tên hiển thị.",
+      "err_dob": "Vui lòng nhập đầy đủ ngày tháng năm sinh.",
+      "err_invalid_dob": "Ngày sinh không hợp lệ."
+    },
+    "profile": {
+      "seeker_badge": "SEEKER",
+      "member_since": "Thành viên từ",
+      "zodiac": "Cung Hoàng Đạo",
+      "lifepath": "Thần số học",
+      "not_updated": "Chưa cập nhật",
+
+      "stats_title": "Thống kê hành trình",
+      "stat_streak": "Chuỗi ngày",
+      "stat_readings": "Tổng trải bài",
+      "stat_decks": "Bộ bài",
+
+      "badge_title": "Bộ sưu tập huy hiệu",
+      "badge_newbie": "Người mới",
+      "badge_streak_3": "Kiên trì 3 ngày",
+      "badge_wise": "Nhà thông thái",
+
+      "settings_title": "Cài đặt & Tài khoản",
+      "menu_info": "Thông tin cá nhân",
+      "menu_theme": "Giao diện",
+      "theme_dark": "Tối",
+      "theme_light": "Sáng",
+      "menu_language": "Ngôn ngữ",
+      "lang_vi": "Tiếng Việt",
+      "lang_en": "English",
+
+      "menu_clear_data": "Xóa dữ liệu cá nhân",
+      "confirm_clear": "Bạn có chắc chắn muốn xóa toàn bộ dữ liệu?",
+      "menu_logout": "Đăng xuất",
+      "version": "Phiên bản 1.0.0 (Beta)"
+    },
+    "zodiac": {
+      "Aquarius": "Bảo Bình",
+      "Pisces": "Song Ngư",
+      "Aries": "Bạch Dương",
+      "Taurus": "Kim Ngưu",
+      "Gemini": "Song Tử",
+      "Cancer": "Cự Giải",
+      "Leo": "Sư Tử",
+      "Virgo": "Xử Nữ",
+      "Libra": "Thiên Bình",
+      "Scorpio": "Bọ Cạp",
+      "Sagittarius": "Nhân Mã",
+      "Capricorn": "Ma Kết"
+    },
+    "reading": {
+      "header_session": "Phiên trải bài",
+      "guidance_question": "Câu hỏi định hướng",
+      "btn_connect": "Kết nối năng lượng & Rút bài",
+      "status_shuffling": "Đang tập trung năng lượng...",
+      "tap_reveal": "Chạm để mở khóa vận mệnh",
+      "btn_view_meaning": "Xem Luận Giải Chi Tiết",
+      "label_destiny_card": "Lá bài định mệnh",
+      "label_universe_msg": "Thông điệp từ vũ trụ",
+      "label_note": "Ghi chú cá nhân",
+      "placeholder_note": "Bạn cảm thấy thế nào về thông điệp này? Hãy viết lại để chiêm nghiệm sau này...",
+      "btn_close": "Đóng",
+      "btn_save": "Lưu & Kết thúc"
+    }
+  }
+}

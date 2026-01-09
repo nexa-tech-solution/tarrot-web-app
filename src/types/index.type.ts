@@ -29,16 +29,6 @@ export type SpreadMeanings = {
   [key: string]: string;
 };
 
-export type TarotCard = {
-  id: number;
-  name: string;
-  image: string;
-  element: string;
-  astrology: string;
-  keywords: string[];
-  meanings: SpreadMeanings;
-};
-
 export type SpreadType = {
   id: string;
   title: string;

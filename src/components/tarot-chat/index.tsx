@@ -16,11 +16,14 @@ import { getRandomCards, type TarrotCard } from "@/data/tarrot.data";
 import { getTarotInterpretation } from "@/utils/geminiHelper";
 import CardItem from "../card-item";
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
+import i18n from "@/language";
 
 // Tên key lưu trong LocalStorage
 const STORAGE_KEY = "tarot_daily_usage";
 
 const TarotChat: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [status, setStatus] = useState(-1);
   const [session, setSession] = useState<ReadingSession>({
@@ -175,7 +178,11 @@ const TarotChat: React.FC = () => {
   };
 
   const interpretReading = async (cards: TarrotCard[]) => {
-    const result = await getTarotInterpretation(session.question, cards);
+    const result = await getTarotInterpretation(
+      session.question,
+      cards,
+      i18n.language.startsWith("vi") ? "vi" : "en"
+    );
     setSession((prev) => ({
       ...prev,
       interpretation: result,
@@ -246,7 +253,7 @@ const TarotChat: React.FC = () => {
         <div className="text-center flex-1 animate-fade-in mr-10">
           <div className="inline-flex items-center gap-2 text-indigo-400 text-[7px] md:text-[10px] uppercase tracking-[0.3em] font-bold mb-1">
             <Star size={10} className="text-amber-400 animate-pulse" />
-            <span>Câu trả lời mang tính chất tham khảo</span>
+            <span>{t("chat.disclaimer")}</span>
           </div>
           <h1 className="text-2xl md:text-3xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-200 to-purple-300">
             Mystic Tarot
@@ -267,16 +274,16 @@ const TarotChat: React.FC = () => {
                 {isFreeTurn && (
                   <div className="absolute top-4 -right-24 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-lg flex items-center gap-1 animate-bounce">
                     <Gift size={10} />
-                    <span>Hôm nay miễn phí</span>
+                    <span>{t("chat.free_tag")}</span>
                   </div>
                 )}
               </div>
               <div className="max-w-md">
                 <h2 className="text-xl md:text-2xl font-serif font-semibold mb-3 text-white">
-                  Chào mừng bạn tới cõi huyền bí
+                  {t("chat.welcome_title")}
                 </h2>
                 <p className="text-slate-400 text-sm leading-relaxed px-6">
-                  Hãy nhắm mắt, hít thở sâu và đặt câu hỏi cho những lá bài.
+                  {t("chat.welcome_desc")}
                 </p>
               </div>
               <form
@@ -287,7 +294,7 @@ const TarotChat: React.FC = () => {
                   type="text"
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
-                  placeholder="Điều gì đang chờ đợi tôi?"
+                  placeholder={t("chat.input_placeholder")}
                   className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 pr-14 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all text-sm placeholder:text-gray-400 text-white"
                 />
                 <button
@@ -313,7 +320,7 @@ const TarotChat: React.FC = () => {
                 </div>
               </div>
               <p className="text-indigo-300 font-serif italic text-sm tracking-widest animate-pulse">
-                ĐANG KẾT NỐI VỚI CÁC VÌ SAO...
+                {t("chat.connecting")}
               </p>
             </div>
           )}
@@ -322,7 +329,7 @@ const TarotChat: React.FC = () => {
             <div className="h-full flex flex-col items-center animate-fade-in">
               <div className="text-center mb-8">
                 <h3 className="text-lg md:text-xl font-serif text-white mb-2">
-                  Chọn lá bài dẫn lối
+                  {t("chat.pick_cards")}
                 </h3>
                 <div className="flex justify-center gap-1">
                   {[0, 1, 2].map((i) => (
@@ -373,11 +380,10 @@ const TarotChat: React.FC = () => {
               </div>
               <div className="max-w-xs">
                 <h3 className="text-xl md:text-2xl font-serif font-bold text-amber-200 mb-3">
-                  Mở khóa lời tiên tri
+                  {t("chat.ad_title")}
                 </h3>
                 <p className="text-slate-400 text-sm mb-8 leading-relaxed">
-                  Bạn đã dùng hết lượt miễn phí hôm nay. Hãy xem một quảng cáo
-                  ngắn để tiếp tục nhận thông điệp.
+                  {t("chat.ad_desc")}
                 </p>
 
                 {adProgress === 0 ? (
@@ -386,7 +392,7 @@ const TarotChat: React.FC = () => {
                     className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white py-4 rounded-2xl font-bold transition-all shadow-xl shadow-indigo-600/20 transform active:scale-95"
                   >
                     <PlayCircle size={20} />
-                    XEM QUẢNG CÁO
+                    {t("chat.ad_btn")}
                   </button>
                 ) : (
                   <div className="w-full space-y-4">
@@ -397,7 +403,7 @@ const TarotChat: React.FC = () => {
                       />
                     </div>
                     <p className="text-[10px] text-indigo-400 uppercase tracking-[0.2em] font-bold">
-                      Vũ trụ đang truyền tin... {adProgress}%
+                      {t("chat.ad_loading")} {adProgress}%
                     </p>
                   </div>
                 )}
@@ -414,7 +420,7 @@ const TarotChat: React.FC = () => {
                   <Quote size={40} />
                 </div>
                 <span className="text-[9px] uppercase font-bold text-indigo-400 tracking-[0.3em] block mb-2">
-                  CÂU HỎI CỦA BẠN
+                  {t("chat.your_question")}
                 </span>
                 <p className="text-lg md:text-xl font-serif text-white/90 italic">
                   "{session.question}"
@@ -437,10 +443,10 @@ const TarotChat: React.FC = () => {
                           } uppercase tracking-widest`}
                         >
                           {i === 0
-                            ? "Quá Khứ"
+                            ? t("chat.past")
                             : i === 1
-                            ? "Hiện Tại"
-                            : "Tương Lai"}
+                            ? t("chat.present")
+                            : t("chat.future")}
                         </span>
                       </div>
                       <CardItem card={card} />
@@ -460,10 +466,10 @@ const TarotChat: React.FC = () => {
                         </div>
                         <div>
                           <h4 className="font-serif text-xl font-bold text-white">
-                            Lời Giải Chi Tiết
+                            {t("chat.result_title")}
                           </h4>
                           <span className="text-[10px] text-indigo-500 uppercase tracking-widest font-bold">
-                            Bởi Trí Tuệ Mystic Tarot
+                            {t("chat.result_by")}
                           </span>
                         </div>
                       </div>
@@ -504,14 +510,14 @@ const TarotChat: React.FC = () => {
                     {session.status === "finished" && (
                       <div className="bg-white/[0.02] p-6 border-t border-white/5 flex flex-col items-center gap-4">
                         <p className="text-[10px] text-slate-500 uppercase font-bold tracking-widest">
-                          Thông điệp từ vũ trụ đã hoàn tất
+                          {t("chat.finished")}
                         </p>
                         <button
                           onClick={resetSession}
                           className="flex items-center gap-2 bg-white text-black hover:bg-indigo-50 px-8 py-3 rounded-xl font-bold text-sm transition-all shadow-lg hover:scale-105 active:scale-95"
                         >
                           <RefreshCw size={16} />
-                          TRẢI BÀI MỚI
+                          {t("chat.new_reading")}
                         </button>
                       </div>
                     )}

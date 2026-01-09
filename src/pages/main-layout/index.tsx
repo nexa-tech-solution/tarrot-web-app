@@ -1,20 +1,26 @@
 import { getThemeStyles } from "@/themes/index.theme";
 import type { TabId } from "@/types/index.type";
 import { useAppStore } from "@/zustand/index.zustand";
-import { BookOpen, Crown, Home, Sparkles, User } from "lucide-react";
+import { BookOpen, Crown, Home, User } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Outlet, useNavigate } from "react-router";
 import Icon from "@/assets/icon.png";
+import { useTranslation } from "react-i18next";
 const MainLayout = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { theme, activeTab, setActiveTab } = useAppStore(); // Use stable state reference
   const s = getThemeStyles(theme);
   const isDark = theme === "dark";
   const scrollRef = useRef<HTMLDivElement>(null);
   const tabs = [
-    { id: "home", icon: <Home size={22} />, label: "Trang chủ" },
-    { id: "journal", icon: <BookOpen size={22} />, label: "Hành trình" },
-    { id: "profile", icon: <User size={22} />, label: "Cá nhân" },
+    { id: "home", icon: <Home size={22} />, label: t("layout.nav.home") },
+    {
+      id: "journal",
+      icon: <BookOpen size={22} />,
+      label: t("layout.nav.journal"),
+    },
+    { id: "profile", icon: <User size={22} />, label: t("layout.nav.profile") },
   ];
   useEffect(() => {
     // Reset Scroll

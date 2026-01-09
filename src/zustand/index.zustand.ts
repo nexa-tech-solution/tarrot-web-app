@@ -45,7 +45,7 @@ export const useAppStore = create<AppState>()(
         name: "Seeker",
         gender: "male",
         dob: { day: "01", month: "01", year: "2000" },
-        zodiac: "Bọ Cạp",
+        zodiac: "Capricorn",
         lifePathNumber: "7",
       },
       selectedSpread: null,

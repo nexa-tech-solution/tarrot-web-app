@@ -11,36 +11,15 @@ import {
   Droplets,
   Wind,
   Mountain,
-  BookOpen,
   Eye,
   Star,
 } from "lucide-react";
 
-// --- MOCK DATA IMPORTS (Giả lập để code chạy được, bạn thay bằng import thật) ---
 import TARROT_CARDS, { type TarrotCard } from "@/data/tarrot.data";
 import { getCardMeta } from "@/utils/tarotHelper";
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 
-// --- CONSTANTS ---
-const FILTERS = [
-  { id: "all", label: "Tất cả" },
-  { id: "major", label: "Ẩn Chính" },
-  { id: "wands", label: "Bộ Gậy" },
-  { id: "cups", label: "Bộ Cốc" },
-  { id: "swords", label: "Bộ Kiếm" },
-  { id: "pentacles", label: "Bộ Tiền" },
-];
-
-const TABS = [
-  { id: "overview", label: "Tổng quan", icon: Eye },
-  { id: "love", label: "Tình yêu", icon: Heart },
-  { id: "career", label: "Sự nghiệp", icon: Briefcase },
-  { id: "finance", label: "Tài chính", icon: Coins },
-];
-
-// --- SUB-COMPONENTS ---
-
-/** 1. Element Badge: Hiển thị nguyên tố với màu sắc tương ứng */
 const ElementBadge = ({
   element,
   className = "",
@@ -73,6 +52,30 @@ const ElementBadge = ({
       bg: "bg-emerald-500/20",
       border: "border-emerald-500/30",
     },
+    Fire: {
+      icon: Zap,
+      color: "text-orange-400",
+      bg: "bg-orange-500/20",
+      border: "border-orange-500/30",
+    },
+    Water: {
+      icon: Droplets,
+      color: "text-blue-400",
+      bg: "bg-blue-500/20",
+      border: "border-blue-500/30",
+    },
+    Air: {
+      icon: Wind,
+      color: "text-sky-300",
+      bg: "bg-sky-500/20",
+      border: "border-sky-500/30",
+    },
+    Earth: {
+      icon: Mountain,
+      color: "text-emerald-400",
+      bg: "bg-emerald-500/20",
+      border: "border-emerald-500/30",
+    },
   };
 
   const theme = config[element] || config["Khí"];
@@ -88,7 +91,6 @@ const ElementBadge = ({
   );
 };
 
-/** 2. Tarot Card Item: Hiển thị thẻ bài trong lưới */
 const TarotCardItem = ({
   card,
   onClick,
@@ -96,6 +98,7 @@ const TarotCardItem = ({
   card: TarrotCard;
   onClick: () => void;
 }) => {
+  const { t } = useTranslation();
   const meta = getCardMeta(card);
 
   return (
@@ -135,7 +138,8 @@ const TarotCardItem = ({
           <div className="flex items-center gap-2">
             <ElementBadge element={card.element} />
             <span className="text-[10px] text-white/60 font-medium uppercase tracking-widest ml-auto flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity delay-100">
-              Chi tiết <ArrowLeft size={10} className="rotate-180" />
+              {t("dictionary.label_detail")}{" "}
+              <ArrowLeft size={10} className="rotate-180" />
             </span>
           </div>
         </div>
@@ -155,10 +159,18 @@ const TarotDetailModal = ({
   card: TarrotCard;
   onClose: () => void;
 }) => {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("overview");
 
   // Animation mounting
   const [isVisible, setIsVisible] = useState(false);
+
+  const TABS = [
+    { id: "overview", label: t("dictionary.tabs.overview"), icon: Eye },
+    { id: "love", label: t("dictionary.tabs.love"), icon: Heart },
+    { id: "career", label: t("dictionary.tabs.career"), icon: Briefcase },
+    { id: "finance", label: t("dictionary.tabs.finance"), icon: Coins },
+  ];
   useEffect(() => setIsVisible(true), []);
 
   if (!card) return null;
@@ -283,11 +295,10 @@ const TarotDetailModal = ({
                     </div>
                     <div>
                       <h4 className="text-sm font-bold text-amber-200 mb-1">
-                        Lời khuyên
+                        {t("dictionary.label_advice")}
                       </h4>
                       <p className="text-sm text-slate-400 italic">
-                        "Lắng nghe trực giác và đừng ngại bước ra khỏi vùng an
-                        toàn."
+                        "{t("dictionary.default_advice")}"
                       </p>
                     </div>
                   </div>
@@ -314,6 +325,7 @@ const TarotDetailModal = ({
 
 const DictionaryPage: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState("all");
   const [selectedCard, setSelectedCard] = useState<TarrotCard | null>(null);
@@ -337,6 +349,14 @@ const DictionaryPage: React.FC = () => {
       return matchesSearch && card.id.includes(activeFilter);
     });
   }, [searchQuery, activeFilter]);
+  const FILTERS = [
+    { id: "all", label: t("dictionary.filters.all") },
+    { id: "major", label: t("dictionary.filters.major") },
+    { id: "wands", label: t("dictionary.filters.wands") },
+    { id: "cups", label: t("dictionary.filters.cups") },
+    { id: "swords", label: t("dictionary.filters.swords") },
+    { id: "pentacles", label: t("dictionary.filters.pentacles") },
+  ];
 
   return (
     <div className="relative flex flex-col h-screen bg-[#050505] text-slate-200 overflow-hidden font-sans selection:bg-amber-500/30">
@@ -362,7 +382,7 @@ const DictionaryPage: React.FC = () => {
               <span className="font-medium hidden md:inline">Quay lại</span>
             </button>
             <h1 className="text-2xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-100">
-              Từ điển Tarot
+              {t("dictionary.dictionary_title")}
             </h1>
             <div className="w-10 md:w-20" /> {/* Spacer */}
           </div>
@@ -376,7 +396,7 @@ const DictionaryPage: React.FC = () => {
                 <Search className="absolute left-3 text-slate-500" size={18} />
                 <input
                   type="text"
-                  placeholder="Tìm lá bài (VD: The Fool, 2 ly...)"
+                  placeholder={t("dictionary.search_placeholder")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-10 pr-4 py-2.5 bg-transparent text-sm text-slate-200 placeholder:text-slate-600 outline-none rounded-xl"
@@ -424,7 +444,7 @@ const DictionaryPage: React.FC = () => {
               <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mb-6 border border-white/5">
                 <Search className="text-slate-600" size={32} />
               </div>
-              <p className="text-slate-500">Không tìm thấy lá bài phù hợp.</p>
+              <p className="text-slate-500">{t("dictionary.no_results")}</p>
             </div>
           )}
         </div>

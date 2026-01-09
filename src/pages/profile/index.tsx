@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useAppStore } from "@/zustand/index.zustand";
 import {
   Award,
@@ -17,6 +17,9 @@ import {
   Zap,
 } from "lucide-react";
 import { useNavigate } from "react-router";
+
+// 1. Import i18n
+import { useTranslation } from "react-i18next";
 
 // --- SUB-COMPONENT: BACKGROUND ---
 const MysticalBackground = () => (
@@ -135,31 +138,15 @@ const SettingRow = ({
 
 // --- MAIN COMPONENT ---
 const ProfilePage: React.FC = () => {
+  const { t, i18n } = useTranslation(); // 2. Init hook
   const navigate = useNavigate();
-  const { userProfile, journal, toggleTheme, theme } = useAppStore();
-  const isDark = theme === "dark";
+  const { userProfile } = useAppStore();
 
-  // Dummy stats logic (có thể thay bằng logic thật sau này)
-  const stats = [
-    {
-      label: "Chuỗi ngày",
-      val: "3", // Ví dụ hardcode, sau này tính từ lastLogin
-      icon: <Zap size={16} />,
-      color: "text-amber-400",
-    },
-    {
-      label: "Tổng trải bài",
-      val: journal.length, // Lấy từ dữ liệu thật
-      icon: <BookOpen size={16} />,
-      color: "text-purple-400",
-    },
-    {
-      label: "Bộ bài",
-      val: "1",
-      icon: <Heart size={16} />,
-      color: "text-rose-400",
-    },
-  ];
+  // Hàm chuyển đổi ngôn ngữ
+  const toggleLanguage = () => {
+    const newLang = i18n.language === "vi" ? "en" : "vi";
+    i18n.changeLanguage(newLang);
+  };
 
   return (
     <div className="relative min-h-screen flex flex-col font-sans bg-[#090514] text-white overflow-x-hidden pb-[100px] md:pb-0">
@@ -169,15 +156,12 @@ const ProfilePage: React.FC = () => {
         {/* --- HEADER PROFILE CARD --- */}
         <div className="pt-12 md:pt-16 pb-8 flex justify-center">
           <div className="w-full md:max-w-[450px] relative group">
-            {/* Glow effect behind card */}
             <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
 
             <div className="relative rounded-[1.8rem] bg-[#13131a] border border-white/10 p-6 md:p-8 overflow-hidden">
-              {/* Decor elements */}
               <div className="absolute -right-16 -top-16 w-48 h-48 bg-indigo-500/20 rounded-full blur-[60px] pointer-events-none"></div>
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent"></div>
 
-              {/* Profile Info */}
               <div className="flex items-center gap-5 relative z-10 mb-6">
                 <div className="relative">
                   <div className="w-20 h-20 rounded-full p-1 bg-gradient-to-br from-indigo-400 to-purple-400 shadow-xl relative z-10">
@@ -187,11 +171,9 @@ const ProfilePage: React.FC = () => {
                       className="w-full h-full rounded-full bg-[#090514]"
                     />
                   </div>
-                  {/* Pro Badge */}
                   <div className="absolute -bottom-2 -right-1 z-20 bg-gradient-to-r from-amber-300 to-amber-500 text-[#090514] text-[10px] font-bold px-3 py-1 rounded-full border border-[#13131a] shadow-lg">
-                    SEEKER
+                    {t("profile.seeker_badge")}
                   </div>
-                  {/* Glow behind avatar */}
                   <div className="absolute inset-0 bg-indigo-400 rounded-full blur-xl opacity-30 animate-pulse-slow"></div>
                 </div>
 
@@ -200,28 +182,31 @@ const ProfilePage: React.FC = () => {
                     {userProfile.name}
                   </h2>
                   <p className="text-[10px] text-indigo-300 uppercase tracking-widest font-bold border border-indigo-500/30 px-2 py-1 rounded-md inline-block bg-indigo-500/10">
-                    Thành viên từ 2025
+                    {t("profile.member_since")} 2025
                   </p>
                 </div>
               </div>
 
-              {/* Meta Info */}
               <div className="grid grid-cols-2 gap-4 pt-6 border-t border-dashed border-white/10">
                 <div>
                   <div className="text-[9px] text-indigo-400/70 uppercase tracking-widest mb-1 font-bold">
-                    Cung Hoàng Đạo
+                    {t("profile.zodiac")}
                   </div>
                   <div className="text-sm font-bold text-white flex items-center gap-2">
                     <Moon size={14} className="text-amber-200" />
-                    {userProfile.zodiac || "Chưa cập nhật"}
+                    {userProfile.zodiac
+                      ? t(`zodiac.${userProfile.zodiac}`)
+                      : t("profile.not_updated")}
                   </div>
                 </div>
                 <div className="text-right">
                   <div className="text-[9px] text-indigo-400/70 uppercase tracking-widest mb-1 font-bold">
-                    Thần số học
+                    {t("profile.lifepath")}
                   </div>
                   <div className="text-sm font-bold text-white flex items-center justify-end gap-2">
-                    Số {userProfile.lifePathNumber || "?"}
+                    {t("profile.lifepath").split(" ")[0]}{" "}
+                    {userProfile.lifePathNumber || "?"}{" "}
+                    {/* Rút gọn chữ Số/No nếu cần */}
                     <Crown size={14} className="text-amber-200" />
                   </div>
                 </div>
@@ -232,102 +217,46 @@ const ProfilePage: React.FC = () => {
 
         {/* --- MAIN CONTENT GRID --- */}
         <div className="md:grid md:grid-cols-12 md:gap-10 pb-8">
-          {/* LEFT COL: Stats & Badges */}
-          {/* <div className="md:col-span-7 space-y-8">
-            <section>
-              <h3 className="flex items-center gap-2 text-xs font-bold text-indigo-300 uppercase tracking-widest mb-4 pl-1">
-                <Zap size={14} /> Thống kê hành trình
-              </h3>
-              <div className="grid grid-cols-3 gap-4">
-                {stats.map((stat, i) => (
-                  <StatCard
-                    key={i}
-                    icon={stat.icon}
-                    label={stat.label}
-                    value={stat.val}
-                    colorClass={stat.color}
-                  />
-                ))}
-              </div>
-            </section>
-
-            <section>
-              <h3 className="flex items-center gap-2 text-xs font-bold text-indigo-300 uppercase tracking-widest mb-4 pl-1">
-                <Award size={14} /> Bộ sưu tập huy hiệu
-              </h3>
-              <div className="grid grid-cols-3 gap-4">
-                <BadgeItem
-                  icon={<Award size={24} />}
-                  label="Người mới"
-                  color="text-amber-400"
-                  bg="bg-amber-400/10"
-                />
-                <BadgeItem
-                  icon={<Star size={24} />}
-                  label="Kiên trì 3 ngày"
-                  color="text-indigo-400"
-                  bg="bg-indigo-400/10"
-                />
-                <BadgeItem
-                  icon={<Shield size={24} />}
-                  label="Nhà thông thái"
-                  color="text-emerald-400"
-                  bg="bg-emerald-400/10"
-                />
-              </div>
-            </section>
-          </div> */}
-
-          {/* RIGHT COL: Settings */}
           <div className="md:col-span-5 md:mt-0">
             <h3 className="flex items-center gap-2 text-xs font-bold text-indigo-300 uppercase tracking-widest mb-4 pl-1">
-              Cài đặt & Tài khoản
+              {t("profile.settings_title")}
             </h3>
 
-            {/* <div className="bg-[#1a1a24]/60 border border-white/10 rounded-3xl overflow-hidden backdrop-blur-md">
-              <SettingRow
+            <div className="bg-[#1a1a24]/60 border border-white/10 rounded-3xl overflow-hidden backdrop-blur-md">
+              {/* <SettingRow
                 icon={<User />}
-                label="Thông tin cá nhân"
+                label={t("profile.menu_info")}
                 action={() => {}}
-              />
+              /> */}
+              {/* 
               <SettingRow
                 icon={isDark ? <Sun /> : <Moon />}
-                label="Giao diện"
-                badge={isDark ? "Tối" : "Sáng"}
+                label={t("profile.menu_theme")}
+                badge={
+                  isDark ? t("profile.theme_dark") : t("profile.theme_light")
+                }
                 action={toggleTheme}
-              />
-              <SettingRow
-                icon={<Globe />}
-                label="Ngôn ngữ"
-                badge="Tiếng Việt"
-                action={() => {}}
-              />
-            </div> */}
+              /> */}
 
-            <div className="mt-6 bg-[#1a1a24]/60 border border-white/10 rounded-3xl overflow-hidden backdrop-blur-md mb-8">
               {/* <SettingRow
-                icon={<Trash2 />}
-                label="Xóa dữ liệu cá nhân"
-                action={() => {
-                  if (
-                    window.confirm("Bạn có chắc chắn muốn xóa toàn bộ dữ liệu?")
-                  ) {
-                    // Logic clear store here
-                    localStorage.clear();
-                    window.location.reload();
-                  }
-                }}
-                isDestructive={true}
+                icon={<Globe />}
+                label={t("profile.menu_language")}
+                badge={
+                  i18n.language === "vi"
+                    ? t("profile.lang_vi")
+                    : t("profile.lang_en")
+                }
+                action={toggleLanguage}
               /> */}
               <SettingRow
                 icon={<LogOut />}
-                label="Đăng xuất"
+                label={t("profile.menu_logout")}
                 action={() => navigate("/")}
               />
             </div>
 
             <div className="text-center text-[10px] text-white/20 uppercase tracking-widest">
-              Phiên bản 1.0.0 (Beta)
+              {t("profile.version")}
             </div>
           </div>
         </div>

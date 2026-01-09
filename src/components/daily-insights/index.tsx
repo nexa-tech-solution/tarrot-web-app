@@ -3,8 +3,10 @@ import { getThemeStyles } from "@/themes/index.theme";
 import { useAppStore } from "@/zustand/index.zustand";
 import { Sparkles, Sun, Zap } from "lucide-react";
 import { getDailyNumber, getMysticAttributes } from "@/utils/mysticHelper"; // Import tiện ích
+import { useTranslation } from "react-i18next";
 
 const DailyInsights: React.FC = () => {
+  const { t } = useTranslation();
   const { theme, userProfile } = useAppStore(); // Lấy userProfile từ store
   const isDark = theme === "dark";
   const s = getThemeStyles(theme);
@@ -28,19 +30,19 @@ const DailyInsights: React.FC = () => {
 
   const items = [
     {
-      label: "Số may mắn",
+      label: t("home.insight_number"),
       val: insights.luckyNumber,
       color: isDark ? "text-emerald-300" : "text-emerald-600",
       icon: <Zap size={14} />,
     },
     {
-      label: "Màu đạo",
-      val: insights.luckyColor,
+      label: t("home.insight_color"),
+      val: t(`colors.${insights.luckyColor}`, insights.luckyColor),
       color: isDark ? "text-purple-300" : "text-purple-600",
       icon: <Sparkles size={14} />,
     },
     {
-      label: "Giờ vàng",
+      label: t("home.insight_hour"),
       val: insights.goldenHour,
       color: isDark ? "text-amber-300" : "text-amber-600",
       icon: <Sun size={14} />,

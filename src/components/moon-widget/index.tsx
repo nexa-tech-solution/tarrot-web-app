@@ -3,14 +3,15 @@ import { getThemeStyles } from "@/themes/index.theme";
 import { useAppStore } from "@/zustand/index.zustand";
 import { Moon } from "lucide-react";
 import { getMoonPhaseData } from "@/utils/mysticHelper"; // Import file tiện ích vừa tạo
+import { useTranslation } from "react-i18next";
 
 const MoonWidget: React.FC = () => {
   const theme = useAppStore((state) => state.theme);
   const isDark = theme === "dark";
   const s = getThemeStyles(theme);
-
+  const { t } = useTranslation();
   // Tính toán dữ liệu mặt trăng (Dùng useMemo để không tính lại mỗi lần render nếu không cần thiết)
-  const { moonAge, phaseName, advice, monthLabel } = useMemo(
+  const { moonAge, phaseKey, currentMonth } = useMemo(
     () => getMoonPhaseData(),
     []
   );
@@ -41,7 +42,7 @@ const MoonWidget: React.FC = () => {
         </div>
         <div className="flex flex-col max-w-[60%]">
           <h4 className={`${s.text} font-serif font-bold text-lg`}>
-            {phaseName}
+            {t("moon.label_phase")}: {t(`moon.phases.${phaseKey}`)}
           </h4>
           <div className="flex items-center gap-2 mt-1">
             <span
@@ -52,7 +53,7 @@ const MoonWidget: React.FC = () => {
             <p
               className={`${s.textSub} text-[10px] uppercase tracking-widest font-medium`}
             >
-              Giai đoạn: {advice}
+              {t("moon.label_phase")}: {t(`moon.advices.${phaseKey}`)}
             </p>
           </div>
         </div>
@@ -64,7 +65,7 @@ const MoonWidget: React.FC = () => {
         <div
           className={`text-[10px] ${s.textSub} uppercase tracking-widest font-bold`}
         >
-          {monthLabel}
+          {t("moon.month_prefix")} {currentMonth}
         </div>
       </div>
     </div>

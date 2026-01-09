@@ -14,6 +14,7 @@ import {
 import Icon from "@/assets/icon.png";
 import { useAppStore } from "@/zustand/index.zustand";
 import { getThemeStyles } from "@/themes/index.theme";
+import { useTranslation } from "react-i18next";
 
 // --- SUB-COMPONENT: BACKGROUND ---
 const MysticalBackground = () => (
@@ -34,6 +35,7 @@ const MysticalBackground = () => (
 
 // --- MAIN COMPONENT ---
 const OnboardingPage: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { theme, userProfile, updateUserProfile } = useAppStore();
   const s = getThemeStyles(theme);
@@ -60,11 +62,11 @@ const OnboardingPage: React.FC = () => {
 
   const handleStart = () => {
     if (!name.trim()) {
-      setError("Vui lòng nhập tên hiển thị.");
+      setError(t("onboarding.error_name"));
       return;
     }
     if (!dob.day || !dob.month || !dob.year) {
-      setError("Vui lòng nhập đầy đủ ngày tháng năm sinh.");
+      setError(t("onboarding.err_dob"));
       return;
     }
 
@@ -72,7 +74,7 @@ const OnboardingPage: React.FC = () => {
     const m = parseInt(dob.month);
     const y = parseInt(dob.year);
     if (d > 31 || m > 12 || y < 1900 || y > new Date().getFullYear()) {
-      setError("Ngày sinh không hợp lệ.");
+      setError(t("onboarding.err_invalid_dob"));
       return;
     }
 
@@ -88,9 +90,9 @@ const OnboardingPage: React.FC = () => {
 
   // Cấu hình lựa chọn giới tính
   const genderOptions = [
-    { id: "male", label: "Nam", icon: Mars },
-    { id: "female", label: "Nữ", icon: Venus },
-    { id: "other", label: "Khác", icon: HelpCircle },
+    { id: "male", label: t("onboarding.gender_male"), icon: Mars },
+    { id: "female", label: t("onboarding.gender_female"), icon: Venus },
+    { id: "other", label: t("onboarding.gender_other"), icon: HelpCircle },
   ];
 
   return (
@@ -112,15 +114,15 @@ const OnboardingPage: React.FC = () => {
           <h1
             className={`text-3xl md:text-4xl font-serif font-bold ${s.text} mb-3 leading-tight`}
           >
-            Chào mừng đến với <br />
+            {t("onboarding.welcome_title")} <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-purple-300 to-amber-200">
-              Mystic Tarot
+              {t("onboarding.app_name")}
             </span>
           </h1>
           <p
             className={`${s.textSub} text-xs md:text-sm mb-8 max-w-md leading-relaxed mx-auto md:mx-0 opacity-80`}
           >
-            Khám phá bản thân và lắng nghe thông điệp từ vũ trụ.
+            {t("onboarding.welcome_desc")}
           </p>
         </div>
 
@@ -133,7 +135,7 @@ const OnboardingPage: React.FC = () => {
               <label
                 className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-indigo-300 mb-2`}
               >
-                <User size={12} /> Tên hiển thị
+                <User size={12} /> {t("onboarding.label_name")}
               </label>
               <div
                 className={`flex items-center gap-3 p-3 rounded-xl border ${s.cardBorder} bg-[#090514]/50 focus-within:border-indigo-400 transition-colors`}
@@ -146,7 +148,7 @@ const OnboardingPage: React.FC = () => {
                     setError(null);
                   }}
                   className={`bg-transparent outline-none flex-1 ${s.text} text-sm font-medium placeholder:text-white/20`}
-                  placeholder="Nhập tên..."
+                  placeholder={t("onboarding.placeholder_name")}
                 />
               </div>
             </div>
@@ -156,7 +158,7 @@ const OnboardingPage: React.FC = () => {
               <label
                 className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-indigo-300 mb-2`}
               >
-                <Calendar size={12} /> Ngày sinh
+                <Calendar size={12} /> {t("onboarding.label_dob")}
               </label>
               <div
                 className={`flex items-center gap-2 p-3 rounded-xl border ${s.cardBorder} bg-[#090514]/50 focus-within:border-indigo-400 transition-colors`}
@@ -193,7 +195,7 @@ const OnboardingPage: React.FC = () => {
             <label
               className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-indigo-300 mb-2`}
             >
-              <Sparkles size={12} /> Giới tính
+              <Sparkles size={12} /> {t("onboarding.label_gender")}
             </label>
             <div className="grid grid-cols-3 gap-3">
               {genderOptions.map((opt) => {
@@ -239,7 +241,7 @@ const OnboardingPage: React.FC = () => {
           onClick={handleStart}
           className="w-full md:w-auto md:px-12 h-14 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-sm uppercase tracking-widest shadow-[0_0_30px_-5px_rgba(99,102,241,0.5)] active:scale-95 transition-all flex items-center justify-center gap-3 group hover:brightness-110"
         >
-          <span>Bắt đầu hành trình</span>
+          <span>{t("onboarding.btn_start")}</span>
           <ArrowRight
             size={18}
             className="group-hover:translate-x-1 transition-transform"

@@ -17,6 +17,7 @@ import {
 import { SPREAD_TYPES, TAROT_DECK } from "@/data/index.data";
 import { useAppStore } from "@/zustand/index.zustand";
 import type { JournalEntry } from "@/types/index.type";
+import { useTranslation } from "react-i18next";
 
 // --- SUB-COMPONENT: BACKGROUND ---
 const MysticalBackground = () => (
@@ -41,27 +42,28 @@ const MysticalBackground = () => (
 );
 
 // --- SUB-COMPONENT: EMPTY STATE ---
-const EmptyJournal = ({ onNavigate }: { onNavigate: () => void }) => (
-  <div className="flex flex-col items-center justify-center py-20 text-center animate-fade-in relative z-10">
-    <div className="w-24 h-24 rounded-full bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-6 shadow-[0_0_30px_-5px_rgba(99,102,241,0.3)]">
-      <Feather size={40} className="text-indigo-300 opacity-80" />
+const EmptyJournal = ({ onNavigate }: { onNavigate: () => void }) => {
+  const { t } = useTranslation();
+  return (
+    <div className="flex flex-col items-center justify-center py-20 text-center animate-fade-in relative z-10">
+      <div className="w-24 h-24 rounded-full bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-6 shadow-[0_0_30px_-5px_rgba(99,102,241,0.3)]">
+        <Feather size={40} className="text-indigo-300 opacity-80" />
+      </div>
+      <h3 className="text-xl font-serif font-bold text-indigo-100 mb-2">
+        {t("journal.empty_title")}
+      </h3>
+      <p className="text-indigo-300/60 max-w-xs mb-8 text-sm">
+        {t("journal.empty_desc")}
+      </p>
+      <button
+        onClick={onNavigate}
+        className="px-6 py-3 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-xs uppercase tracking-widest hover:shadow-lg hover:scale-105 transition-all"
+      >
+        {t("journal.btn_reading")}
+      </button>
     </div>
-    <h3 className="text-xl font-serif font-bold text-indigo-100 mb-2">
-      Cuốn nhật ký còn trống
-    </h3>
-    <p className="text-indigo-300/60 max-w-xs mb-8 text-sm">
-      Hãy thực hiện trải bài đầu tiên để lắng nghe thông điệp từ vũ trụ và lưu
-      giữ nó tại đây.
-    </p>
-    <button
-      onClick={onNavigate}
-      className="px-6 py-3 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-xs uppercase tracking-widest hover:shadow-lg hover:scale-105 transition-all"
-    >
-      Trải bài ngay
-    </button>
-  </div>
-);
-
+  );
+};
 // --- NEW SUB-COMPONENT: JOURNAL DETAIL MODAL ---
 interface ModalProps {
   entryId: string;
@@ -76,6 +78,7 @@ const JournalDetailModal = ({
   getDataHelper,
   journalData,
 }: ModalProps) => {
+  const { t } = useTranslation();
   const entry = journalData.find((item) => item.id === entryId);
   if (!entry) return null;
 
@@ -143,14 +146,14 @@ const JournalDetailModal = ({
           {/* Full Note Section */}
           <div className="flex-1 relative bg-white/5 border border-[#d4af37]/20 rounded-2xl p-5">
             <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[#d4af37] mb-4 pb-3 border-b border-white/5">
-              <BookOpen size={12} /> Chiêm nghiệm chi tiết
+              <BookOpen size={12} /> {t("journal.modal_reflection")}
             </div>
             <Sparkles
               className="absolute top-4 right-4 text-[#d4af37]/20"
               size={16}
             />
             <p className="text-indigo-100/90 text-sm md:text-base leading-relaxed font-light whitespace-pre-line">
-              {entry.note || "Không có ghi chú nào được lưu cho trải bài này."}
+              {entry.note || t("journal.modal_no_note")}
             </p>
           </div>
         </div>
@@ -162,6 +165,7 @@ const JournalDetailModal = ({
 // --- MAIN COMPONENT ---
 
 const JournalPage: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { journal, removeJournalEntry } = useAppStore();
 
@@ -196,18 +200,18 @@ const JournalPage: React.FC = () => {
         {/* ... (Giữ nguyên phần Header cũ) ... */}
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2 text-[10px] font-bold text-amber-400/80 uppercase tracking-[0.2em] mb-2 animate-fade-in-down">
-            <History size={12} /> <span>Hành trình tâm linh</span>
+            <History size={12} /> <span>{t("journal.label_journey")}</span>
           </div>
         </div>
 
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-white/10 pb-8">
           <div>
             <h2 className="text-3xl md:text-5xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-100 via-white to-indigo-200 mb-3 drop-shadow-sm">
-              Nhật Ký Tarot
+              {t("journal.title")}
             </h2>
             <p className="text-indigo-200/60 text-sm md:text-base font-light max-w-md">
-              Nơi lưu giữ những lời thì thầm của vũ trụ và chiêm nghiệm của bản
-              thân qua từng trải bài. ({journal.length} ghi chép)
+              {t("journal.subtitle")} ({journal.length}{" "}
+              {t("journal.count_entries")})
             </p>
           </div>
           {/* Search / Filter Visual Only */}
@@ -219,7 +223,7 @@ const JournalPage: React.FC = () => {
               />
               <input
                 type="text"
-                placeholder="Tìm kiếm..."
+                placeholder={t("journal.search")}
                 className="pl-10 pr-4 py-2.5 bg-white/5 border border-white/10 rounded-full text-xs text-indigo-100 placeholder:text-indigo-400/30 focus:outline-none focus:bg-white/10 focus:border-indigo-400/50 transition-all w-[200px]"
               />
             </div>
@@ -279,18 +283,14 @@ const JournalPage: React.FC = () => {
                         <button
                           onClick={(e) => {
                             e.stopPropagation(); // Ngăn không cho mở modal khi bấm nút xóa
-                            if (
-                              window.confirm(
-                                "Bạn có chắc muốn xóa ghi chép này?"
-                              )
-                            ) {
+                            if (window.confirm(t("journal.delete_confirm"))) {
                               removeJournalEntry(item.id);
                             }
                           }}
                           className={`absolute -top-2 ${
                             isEven ? "-left-2" : "-right-2"
                           } z-30 p-2 bg-red-500/20 text-red-400 rounded-full opacity-0 group-hover/card:opacity-100 transition-opacity hover:bg-red-500 hover:text-white pointer-events-auto`}
-                          title="Xóa nhật ký"
+                          title={t("journal.delete_tooltip")}
                         >
                           <Trash2 size={14} />
                         </button>
@@ -354,7 +354,7 @@ const JournalPage: React.FC = () => {
                                   size={12}
                                 />
                                 <p className="text-sm text-indigo-200/70 font-light italic line-clamp-2 leading-relaxed pl-2 border-l-2 border-[#d4af37]/20">
-                                  "{item.note || "Không có ghi chú"}"
+                                  "{item.note || t("journal.no_note_short")}"
                                 </p>
                               </div>
                             </div>
@@ -366,7 +366,7 @@ const JournalPage: React.FC = () => {
                               isEven ? "md:justify-end" : ""
                             }`}
                           >
-                            Xem chi tiết{" "}
+                            {t("journal.view_details")}{" "}
                             <ChevronRight size={12} className="ml-1" />
                           </div>
                         </div>

@@ -1,0 +1,223 @@
+{
+  "translation": {
+    "dictionary": {
+      "dictionary_title": "Tarot Dictionary",
+      "back": "Back",
+      "search_placeholder": "Search cards (e.g., The Fool, 2 Cups...)",
+      "no_results": "No cards found.",
+      "label_detail": "Details",
+      "label_advice": "Advice",
+      "default_advice": "Listen to your intuition and don't be afraid to step out of your comfort zone.",
+      "filters": {
+        "all": "All",
+        "major": "Major Arcana",
+        "wands": "Wands",
+        "cups": "Cups",
+        "swords": "Swords",
+        "pentacles": "Pentacles"
+      },
+      "tabs": {
+        "overview": "Overview",
+        "love": "Love",
+        "career": "Career",
+        "finance": "Finance"
+      },
+      "elements": {
+        "Fire": "Fire",
+        "Water": "Water",
+        "Air": "Air",
+        "Earth": "Earth",
+        "Lửa": "Fire",
+        "Nước": "Water",
+        "Khí": "Air",
+        "Đất": "Earth"
+      }
+    },
+    "home": {
+      "streak": "3 Day Streak",
+      "hello": "Hello",
+      "popular_spreads": "Popular Spreads",
+      "start": "Start",
+      "dictionary_title": "Tarot Dictionary",
+      "dictionary_desc": "Lookup upright, reversed meanings and symbolism of 78 cards.",
+      "search_placeholder": "Search for a card...",
+      "chatbot_promo": "Would you like a <1>deep reading</1> with Mystic Tarot? ✨",
+      "insight_number": "Lucky Number",
+      "insight_color": "Lucky Color",
+      "insight_hour": "Golden Hour"
+    },
+    "colors": {
+      "Red": "Red",
+      "White": "White",
+      "Yellow": "Yellow",
+      "Green": "Green",
+      "Blue": "Blue",
+      "Pink": "Pink",
+      "Purple": "Purple",
+      "Gold": "Gold",
+      "Terracotta": "Terracotta",
+      "Silver": "Silver",
+      "Bronze": "Bronze",
+      "Black": "Black"
+    },
+    "moon": {
+      "month_prefix": "Month",
+      "label_phase": "Phase",
+      "phases": {
+        "New": "New Moon",
+        "WaxingCrescent": "Waxing Crescent",
+        "FirstQuarter": "First Quarter",
+        "WaxingGibbous": "Waxing Gibbous",
+        "Full": "Full Moon",
+        "WaningGibbous": "Waning Gibbous",
+        "LastQuarter": "Last Quarter",
+        "WaningCrescent": "Waning Crescent"
+      },
+      "advices": {
+        "New": "New beginnings, set intentions",
+        "WaxingCrescent": "Take action, gather resources",
+        "FirstQuarter": "Adjust, overcome obstacles",
+        "WaxingGibbous": "Refine, perfect details",
+        "Full": "Harvest, gratitude",
+        "WaningGibbous": "Share, release",
+        "LastQuarter": "Let go, forgive",
+        "WaningCrescent": "Rest, cleanse"
+      }
+    },
+    "chat": {
+      "disclaimer": "Readings are for entertainment purposes",
+      "free_tag": "Free today",
+      "welcome_title": "Welcome to the Mystic Realm",
+      "welcome_desc": "Close your eyes, take a deep breath, and ask the cards a question.",
+      "input_placeholder": "What awaits me?",
+      "connecting": "CONNECTING TO THE STARS...",
+      "pick_cards": "Choose your guiding cards",
+
+      "ad_title": "Unlock the Prophecy",
+      "ad_desc": "You have used your free turn today. Watch a short ad to receive your message.",
+      "ad_btn": "WATCH AD",
+      "ad_loading": "The universe is transmitting...",
+
+      "your_question": "YOUR QUESTION",
+      "past": "Past",
+      "present": "Present",
+      "future": "Future",
+      "result_title": "Detailed Interpretation",
+      "result_by": "By Mystic Tarot AI",
+      "finished": "The cosmic message is complete",
+      "new_reading": "NEW READING"
+    },
+    "journal": {
+      "empty_title": "Your Journal is Empty",
+      "empty_desc": "Perform your first reading to listen to the universe's messages and keep them here.",
+      "btn_reading": "Start Reading",
+
+      "label_journey": "Spiritual Journey",
+      "title": "Tarot Journal",
+      "subtitle": "A place to keep the whispers of the universe and your reflections.",
+      "count_entries": "entries",
+      "search": "Search...",
+
+      "delete_confirm": "Are you sure you want to delete this entry?",
+      "delete_tooltip": "Delete entry",
+      "view_details": "View details",
+      "no_note_short": "No notes",
+
+      "modal_reflection": "Detailed Reflection",
+      "modal_no_note": "No notes saved for this reading."
+    },
+    "layout": {
+      "nav": {
+        "home": "Home",
+        "journal": "Journal",
+        "profile": "Profile"
+      },
+      "sidebar": {
+        "app_name": "Mystic",
+        "subtitle": "Tarot Reader",
+        "premium_badge": "Premium",
+        "unlock_title": "Unlock All",
+        "unlock_desc": "Unlimited access to premium spreads."
+      }
+    },
+    "onboarding": {
+      "welcome_title": "Welcome to",
+      "app_name": "Mystic Tarot",
+      "welcome_desc": "Discover yourself and listen to the messages from the universe.",
+
+      "label_name": "Display Name",
+      "placeholder_name": "Enter name...",
+      "label_dob": "Date of Birth",
+      "label_gender": "Gender",
+
+      "gender_male": "Male",
+      "gender_female": "Female",
+      "gender_other": "Other",
+
+      "btn_start": "Start Journey",
+
+      "err_name": "Please enter a display name.",
+      "err_dob": "Please enter full date of birth.",
+      "err_invalid_dob": "Invalid date of birth."
+    },
+    "profile": {
+      "seeker_badge": "SEEKER",
+      "member_since": "Member since",
+      "zodiac": "Zodiac Sign",
+      "lifepath": "Life Path",
+      "not_updated": "Not updated",
+
+      "stats_title": "Journey Statistics",
+      "stat_streak": "Day Streak",
+      "stat_readings": "Total Readings",
+      "stat_decks": "Decks",
+
+      "badge_title": "Badge Collection",
+      "badge_newbie": "Newbie",
+      "badge_streak_3": "3 Day Streak",
+      "badge_wise": "Wise One",
+
+      "settings_title": "Settings & Account",
+      "menu_info": "Personal Info",
+      "menu_theme": "Theme",
+      "theme_dark": "Dark",
+      "theme_light": "Light",
+      "menu_language": "Language",
+      "lang_vi": "Vietnamese",
+      "lang_en": "English",
+
+      "menu_clear_data": "Clear Personal Data",
+      "confirm_clear": "Are you sure you want to delete all data?",
+      "menu_logout": "Log Out",
+      "version": "Version 1.0.0 (Beta)"
+    },
+    "zodiac": {
+      "Aquarius": "Aquarius",
+      "Pisces": "Pisces",
+      "Aries": "Aries",
+      "Taurus": "Taurus",
+      "Gemini": "Gemini",
+      "Cancer": "Cancer",
+      "Leo": "Leo",
+      "Virgo": "Virgo",
+      "Libra": "Libra",
+      "Scorpio": "Scorpio",
+      "Sagittarius": "Sagittarius",
+      "Capricorn": "Capricorn"
+    },
+    "reading": {
+      "header_session": "Reading Session",
+      "guidance_question": "Guiding Question",
+      "btn_connect": "Connect Energy & Draw",
+      "status_shuffling": "Focusing energy...",
+      "tap_reveal": "Tap to unlock destiny",
+      "btn_view_meaning": "View Interpretation",
+      "label_destiny_card": "Destiny Card",
+      "label_universe_msg": "Message from the Universe",
+      "label_note": "Personal Note",
+      "placeholder_note": "How do you feel about this message? Write it down for reflection...",
+      "btn_close": "Close",
+      "btn_save": "Save & Finish"
+    }
+  }
+}

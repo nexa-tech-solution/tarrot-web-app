@@ -65,17 +65,17 @@ export const getDailyNumber = (dobDay: string, dobMonth: string) => {
 export const getMysticAttributes = (dailyNumber: number) => {
   // Mapping đơn giản dựa trên năng lượng các con số
   const map: Record<number, { color: string; hour: string }> = {
-    1: { color: "Đỏ", hour: "6h-8h" }, // Tiên phong, năng lượng
-    2: { color: "Trắng", hour: "20h-22h" }, // Trực giác, kết nối
-    3: { color: "Vàng", hour: "11h-13h" }, // Sáng tạo, giao tiếp
-    4: { color: "Xanh lá", hour: "5h-7h" }, // Ổn định, trật tự
-    5: { color: "Xanh dương", hour: "15h-17h" }, // Tự do, thay đổi
-    6: { color: "Hồng", hour: "18h-20h" }, // Yêu thương, gia đình
-    7: { color: "Tím", hour: "22h-0h" }, // Tâm linh, tri thức
-    8: { color: "Vàng kim", hour: "13h-15h" }, // Thịnh vượng, quyền lực
-    9: { color: "Cam đất", hour: "9h-11h" }, // Nhân đạo, kết thúc
-    11: { color: "Bạc", hour: "23h-1h" }, // Trực giác cao
-    22: { color: "Vàng đồng", hour: "10h-12h" }, // Kiến tạo
+    1: { color: "Red", hour: "6h-8h" }, // Đỏ
+    2: { color: "White", hour: "20h-22h" }, // Trắng
+    3: { color: "Yellow", hour: "11h-13h" }, // Vàng
+    4: { color: "Green", hour: "5h-7h" }, // Xanh lá
+    5: { color: "Blue", hour: "15h-17h" }, // Xanh dương
+    6: { color: "Pink", hour: "18h-20h" }, // Hồng
+    7: { color: "Purple", hour: "22h-0h" }, // Tím
+    8: { color: "Gold", hour: "13h-15h" }, // Vàng kim
+    9: { color: "Terracotta", hour: "9h-11h" }, // Cam đất
+    11: { color: "Silver", hour: "23h-1h" }, // Bạc
+    22: { color: "Bronze", hour: "10h-12h" }, // Vàng đồng
   };
 
   // Mặc định fallback về số 9 nếu ra số lạ
@@ -105,41 +105,31 @@ export const getMoonPhaseData = () => {
   // Tuổi trăng (0 đến ~29.5)
   const moonAge = Math.round(phase * 29.53);
 
-  let phaseName = "";
-  let advice = "";
+  let phaseKey = "";
 
   // Phân loại giai đoạn
   if (moonAge <= 1) {
-    phaseName = "Trăng Non";
-    advice = "Khởi đầu mới, gieo hạt giống";
+    phaseKey = "New"; // Trăng Non
   } else if (moonAge < 7) {
-    phaseName = "Trăng Lưỡi Liềm";
-    advice = "Hành động, thu thập";
+    phaseKey = "WaxingCrescent"; // Trăng Lưỡi Liềm
   } else if (moonAge === 7 || moonAge === 8) {
-    phaseName = "Bán Nguyệt Đầu";
-    advice = "Điều chỉnh, vượt trở ngại";
+    phaseKey = "FirstQuarter"; // Bán Nguyệt Đầu
   } else if (moonAge < 14) {
-    phaseName = "Trăng Khuyết";
-    advice = "Hoàn thiện, tinh chỉnh";
+    phaseKey = "WaxingGibbous"; // Trăng Khuyết
   } else if (moonAge === 14 || moonAge === 15) {
-    phaseName = "Trăng Tròn";
-    advice = "Thành tựu, biết ơn";
+    phaseKey = "Full"; // Trăng Tròn
   } else if (moonAge < 22) {
-    phaseName = "Trăng Khuyết (Cuối)";
-    advice = "Chia sẻ, giải phóng";
+    phaseKey = "WaningGibbous"; // Trăng Khuyết (Cuối)
   } else if (moonAge === 22 || moonAge === 23) {
-    phaseName = "Bán Nguyệt Cuối";
-    advice = "Buông bỏ, tha thứ";
+    phaseKey = "LastQuarter"; // Bán Nguyệt Cuối
   } else {
-    phaseName = "Trăng Tàn";
-    advice = "Nghỉ ngơi, thanh tẩy";
+    phaseKey = "WaningCrescent"; // Trăng Tàn
   }
 
   return {
     moonAge, // Số ngày tuổi (ví dụ: 28)
-    phaseName,
-    advice,
-    monthLabel: `Tháng ${new Date().getMonth() + 1}`,
+    phaseKey,
+    currentMonth: new Date().getMonth() + 1,
   };
 };
 
@@ -148,24 +138,19 @@ export const getZodiacSign = (dayStr: string, monthStr: string): string => {
   const month = parseInt(monthStr);
 
   if ((month === 1 && day >= 20) || (month === 2 && day <= 18))
-    return "Bảo Bình";
-  if ((month === 2 && day >= 19) || (month === 3 && day <= 20))
-    return "Song Ngư";
-  if ((month === 3 && day >= 21) || (month === 4 && day <= 19))
-    return "Bạch Dương";
-  if ((month === 4 && day >= 20) || (month === 5 && day <= 20))
-    return "Kim Ngưu";
-  if ((month === 5 && day >= 21) || (month === 6 && day <= 20))
-    return "Song Tử";
-  if ((month === 6 && day >= 21) || (month === 7 && day <= 22))
-    return "Cự Giải";
-  if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return "Sư Tử";
-  if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return "Xử Nữ";
-  if ((month === 9 && day >= 23) || (month === 10 && day <= 22))
-    return "Thiên Bình";
+    return "Aquarius"; // Bảo Bình
+  if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) return "Pisces"; // Song Ngư
+  if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return "Aries"; // Bạch Dương
+  if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return "Taurus"; // Kim Ngưu
+  if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) return "Gemini"; // Song Tử
+  if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) return "Cancer"; // Cự Giải
+  if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return "Leo"; // Sư Tử
+  if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return "Virgo"; // Xử Nữ
+  if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return "Libra"; // Thiên Bình
   if ((month === 10 && day >= 23) || (month === 11 && day <= 21))
-    return "Bọ Cạp";
+    return "Scorpio"; // Bọ Cạp
   if ((month === 11 && day >= 22) || (month === 12 && day <= 21))
-    return "Nhân Mã";
-  return "Ma Kết";
+    return "Sagittarius"; // Nhân Mã
+
+  return "Capricorn"; // Ma Kết
 };
