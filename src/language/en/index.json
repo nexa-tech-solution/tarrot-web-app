@@ -218,6 +218,19 @@
       "placeholder_note": "How do you feel about this message? Write it down for reflection...",
       "btn_close": "Close",
       "btn_save": "Save & Finish"
+    },
+    "recap": {
+      "title": "Your Week in Cards",
+      "subtitle": "A mystical reflection on your journey",
+      "top_cards": "Most Drawn Cards",
+      "times_drawn": "drawn {{count}} times",
+      "ai_insight_title": "Cosmic Insight",
+      "total_readings": "{{count}} readings this week",
+      "continue": "Continue to App",
+      "empty_title": "A Quiet Week",
+      "empty_message": "No readings this week - let's change that!",
+      "empty_cta": "Start a Reading",
+      "loading": "Consulting the stars..."
     }
   }
 }

@@ -2,17 +2,43 @@ import { getThemeStyles } from "@/themes/index.theme";
 import type { TabId } from "@/types/index.type";
 import { useAppStore } from "@/zustand/index.zustand";
 import { BookOpen, Crown, Home, User } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Outlet, useNavigate } from "react-router";
 import Icon from "@/assets/icon.png";
 import { useTranslation } from "react-i18next";
+import { getISOWeek } from "@/utils/weekHelper";
+import WeeklyRecapModal from "@/components/weekly-recap";
 const MainLayout = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { theme, activeTab, setActiveTab } = useAppStore(); // Use stable state reference
+  const { theme, activeTab, setActiveTab } = useAppStore();
+  const lastShownRecapWeek = useAppStore((state) => state.lastShownRecapWeek);
+  const setLastShownRecapWeek = useAppStore(
+    (state) => state.setLastShownRecapWeek
+  );
   const s = getThemeStyles(theme);
   const isDark = theme === "dark";
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Weekly Recap Modal State
+  const [showRecap, setShowRecap] = useState(false);
+
+  // Check if weekly recap should show on mount
+  useEffect(() => {
+    const currentWeek = getISOWeek();
+    if (lastShownRecapWeek !== currentWeek) {
+      // Small delay for smoother UX after app loads
+      const timer = setTimeout(() => setShowRecap(true), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [lastShownRecapWeek]);
+
+  // Handle recap modal close
+  const handleRecapClose = () => {
+    setShowRecap(false);
+    setLastShownRecapWeek(getISOWeek());
+  };
+
   const tabs = [
     { id: "home", icon: <Home size={22} />, label: t("layout.nav.home") },
     {
@@ -38,6 +64,9 @@ const MainLayout = () => {
   }, [location.pathname, setActiveTab, activeTab]);
   return (
     <>
+      {/* Weekly Recap Modal */}
+      {showRecap && <WeeklyRecapModal onClose={handleRecapClose} />}
+
       {/* MOBILE BOTTOM BAR */}
       <div
         className={`md:hidden fixed bottom-0 left-0 right-0 h-[80px] ${s.navBg} backdrop-blur-xl border-t ${s.cardBorder} flex items-center justify-around px-6 z-50 transition-colors duration-500`}

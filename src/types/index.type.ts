@@ -89,3 +89,11 @@ export interface Message {
   role: "user" | "model";
   content: string;
 }
+
+export type WeeklyRecapData = {
+  weekId: string; // ISO week format: "2026-W02"
+  totalReadings: number;
+  topCards: { cardId: string; count: number }[];
+  aiInsight: string | null;
+  generatedAt: number;
+};

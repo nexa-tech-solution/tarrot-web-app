@@ -26,7 +26,7 @@ const MysticalBackground = () => (
       className="absolute inset-0 bg-cover bg-center opacity-60 scale-110 animate-pulse-slow"
       style={{
         backgroundImage:
-          "url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5980?q=80&w=3872&auto=format&fit=crop')",
+          "url('https://i.pinimg.com/originals/64/56/a1/6456a1ea21f4f08401a4a18b58a3c199.gif')",
       }}
     />
     {/* Lớp phủ màu gradient tạo chiều sâu */}

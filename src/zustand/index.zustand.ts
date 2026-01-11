@@ -6,7 +6,8 @@ import type {
   TabId,
   ThemeMode,
   UserProfile,
-  JournalEntry, // Import type mới
+  JournalEntry,
+  WeeklyRecapData,
 } from "@/types/index.type";
 import { getLifePathNumber, getZodiacSign } from "@/utils/mysticHelper";
 
@@ -18,6 +19,10 @@ type AppState = {
 
   // --- Thêm State cho Journal ---
   journal: JournalEntry[];
+
+  // --- Weekly Recap State ---
+  lastShownRecapWeek: string | null;
+  cachedRecapData: WeeklyRecapData | null;
 
   // Actions cũ
   setTheme: (mode: ThemeMode) => void;
@@ -32,6 +37,10 @@ type AppState = {
     entry: Omit<JournalEntry, "id" | "date" | "timestamp">
   ) => void;
   removeJournalEntry: (id: string) => void;
+
+  // --- Weekly Recap Actions ---
+  setLastShownRecapWeek: (weekId: string) => void;
+  setCachedRecapData: (data: WeeklyRecapData | null) => void;
 };
 
 // 2. Bọc create trong persist
@@ -52,6 +61,10 @@ export const useAppStore = create<AppState>()(
 
       // Khởi tạo mảng rỗng
       journal: [],
+
+      // Weekly Recap initial state
+      lastShownRecapWeek: null,
+      cachedRecapData: null,
 
       setTheme: (mode) => set({ theme: mode }),
       toggleTheme: () =>
@@ -113,6 +126,10 @@ export const useAppStore = create<AppState>()(
         set((state) => ({
           journal: state.journal.filter((item) => item.id !== id),
         })),
+
+      // --- Weekly Recap Actions ---
+      setLastShownRecapWeek: (weekId) => set({ lastShownRecapWeek: weekId }),
+      setCachedRecapData: (data) => set({ cachedRecapData: data }),
     }),
     {
       name: "tarot-app-storage", // Tên key trong LocalStorage

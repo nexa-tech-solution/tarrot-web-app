@@ -218,6 +218,19 @@
       "placeholder_note": "Bạn cảm thấy thế nào về thông điệp này? Hãy viết lại để chiêm nghiệm sau này...",
       "btn_close": "Đóng",
       "btn_save": "Lưu & Kết thúc"
+    },
+    "recap": {
+      "title": "Tuần Của Bạn Qua Các Lá Bài",
+      "subtitle": "Nhìn lại hành trình tâm linh",
+      "top_cards": "Lá Bài Xuất Hiện Nhiều Nhất",
+      "times_drawn": "rút {{count}} lần",
+      "ai_insight_title": "Thông Điệp Vũ Trụ",
+      "total_readings": "{{count}} lần đọc bài tuần này",
+      "continue": "Tiếp Tục",
+      "empty_title": "Một Tuần Yên Tĩnh",
+      "empty_message": "Chưa có lần đọc bài nào tuần này - hãy bắt đầu nhé!",
+      "empty_cta": "Bắt Đầu Đọc Bài",
+      "loading": "Đang hỏi ý các vì sao..."
     }
   }
 }

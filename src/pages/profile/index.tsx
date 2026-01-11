@@ -28,7 +28,7 @@ const MysticalBackground = () => (
       className="absolute inset-0 bg-cover bg-center opacity-30 animate-pulse-slow"
       style={{
         backgroundImage:
-          "url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5980?q=80&w=3872&auto=format&fit=crop')",
+          "url('https://i.pinimg.com/originals/64/56/a1/6456a1ea21f4f08401a4a18b58a3c199.gif')",
       }}
     />
     <div className="absolute inset-0 bg-gradient-to-b from-[#090514] via-[#13131f]/90 to-[#090514]" />
@@ -147,7 +147,7 @@ const ProfilePage: React.FC = () => {
     const newLang = i18n.language === "vi" ? "en" : "vi";
     i18n.changeLanguage(newLang);
   };
-
+  console.log(userProfile);
   return (
     <div className="relative min-h-screen flex flex-col font-sans bg-[#090514] text-white overflow-x-hidden pb-[100px] md:pb-0">
       <MysticalBackground />
