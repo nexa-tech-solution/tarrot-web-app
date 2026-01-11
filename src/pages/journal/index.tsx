@@ -68,7 +68,12 @@ const EmptyJournal = ({ onNavigate }: { onNavigate: () => void }) => {
 interface ModalProps {
   entryId: string;
   onClose: () => void;
-  getDataHelper: (item: JournalEntry) => { card: any; spread: any };
+  getDataHelper: (item: JournalEntry) => {
+    card: any;
+    cards: any[];
+    spread: any;
+    isMultiCard: boolean;
+  };
   journalData: JournalEntry[];
 }
 
@@ -82,7 +87,7 @@ const JournalDetailModal = ({
   const entry = journalData.find((item) => item.id === entryId);
   if (!entry) return null;
 
-  const { card, spread } = getDataHelper(entry);
+  const { card, cards, spread, isMultiCard } = getDataHelper(entry);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fade-in">
@@ -102,14 +107,37 @@ const JournalDetailModal = ({
           <X size={20} />
         </button>
 
-        {/* Left Side: Card Image */}
+        {/* Left Side: Card Image(s) */}
         <div className="w-full md:w-2/5 h-64 md:h-auto relative shrink-0">
           <div className="absolute inset-0 bg-gradient-to-t from-[#13131a] via-transparent to-transparent md:bg-gradient-to-r z-10"></div>
-          <img
-            src={card.image}
-            alt={card.name}
-            className="w-full h-full object-cover object-center opacity-90"
-          />
+          {isMultiCard ? (
+            // Multi-card grid display
+            <div className="w-full h-full p-4 grid grid-cols-3 gap-2 bg-gradient-to-br from-indigo-900/50 to-purple-900/50">
+              {cards.slice(0, 6).map((c: any, idx: number) => (
+                <div
+                  key={idx}
+                  className="aspect-[2/3] rounded-lg overflow-hidden border border-amber-400/20"
+                >
+                  <img
+                    src={c.image}
+                    alt={c.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))}
+              {cards.length > 6 && (
+                <div className="aspect-[2/3] rounded-lg bg-white/10 flex items-center justify-center text-amber-400 text-sm font-bold">
+                  +{cards.length - 6}
+                </div>
+              )}
+            </div>
+          ) : (
+            <img
+              src={card.image}
+              alt={card.name}
+              className="w-full h-full object-cover object-center opacity-90"
+            />
+          )}
           {/* Spread Badge Overlay on Mobile */}
           <div className="absolute bottom-4 left-4 md:hidden z-20 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10">
             {spread.icon && <spread.icon size={10} className={spread.color} />}
@@ -136,8 +164,15 @@ const JournalDetailModal = ({
               </span>
             </div>
             <h2 className="text-2xl md:text-3xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] to-amber-200 mb-2">
-              {card.name}
+              {isMultiCard
+                ? `${cards.length} ${t("reading.card_count", { count: cards.length }).replace(/\d+\s*/, "")}`
+                : card.name}
             </h2>
+            {isMultiCard && (
+              <p className="text-xs text-indigo-300/70 mb-2">
+                {cards.map((c: any) => c.name).join(" • ")}
+              </p>
+            )}
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-indigo-300/70">
               <Calendar size={12} /> {entry.date}
             </div>
@@ -174,11 +209,15 @@ const JournalPage: React.FC = () => {
 
   // Helper lấy thông tin chi tiết
   const getJournalItemInfo = (item: JournalEntry) => {
-    const card =
-      TAROT_DECK.find((c) => c.id === String(item.cardId)) || TAROT_DECK[0];
+    // Support multi-card entries (cardIds) and legacy single-card (cardId)
+    const cardIds = item.cardIds || (item.cardId ? [item.cardId] : []);
+    const cards = cardIds
+      .map((id) => TAROT_DECK.find((c) => c.id === String(id)))
+      .filter(Boolean);
+    const card = cards[0] || TAROT_DECK[0]; // First card for display
     const spread =
       SPREAD_TYPES.find((s) => s.id === item.spreadId) || SPREAD_TYPES[0];
-    return { card, spread };
+    return { card, cards, spread, isMultiCard: cardIds.length > 1 };
   };
 
   return (
@@ -242,7 +281,7 @@ const JournalPage: React.FC = () => {
 
             <div className="space-y-16">
               {journal.map((item, idx) => {
-                const { card, spread } = getJournalItemInfo(item);
+                const { card, cards, spread, isMultiCard } = getJournalItemInfo(item);
                 const isEven = idx % 2 === 0;
 
                 return (
@@ -313,14 +352,46 @@ const JournalPage: React.FC = () => {
                               isEven ? "md:flex-row-reverse" : "flex-row"
                             }`}
                           >
-                            {/* Mini Tarot Image */}
-                            <div className="w-20 h-28 shrink-0 rounded-lg overflow-hidden border border-white/10 shadow-lg group-hover/card:shadow-[#d4af37]/20 transition-all">
-                              <img
-                                src={card.image}
-                                alt={card.name}
-                                className="w-full h-full object-cover opacity-90 group-hover/card:opacity-100 group-hover/card:scale-110 transition-all duration-700"
-                              />
-                            </div>
+                            {/* Mini Tarot Image(s) */}
+                            {isMultiCard ? (
+                              <div className="relative w-20 h-28 shrink-0">
+                                {cards.slice(0, 3).map((c: any, cIdx: number) => (
+                                  <div
+                                    key={cIdx}
+                                    className="absolute rounded-lg overflow-hidden border border-white/10 shadow-lg"
+                                    style={{
+                                      width: "60px",
+                                      height: "84px",
+                                      top: `${cIdx * 4}px`,
+                                      left: `${cIdx * 8}px`,
+                                      zIndex: 3 - cIdx,
+                                    }}
+                                  >
+                                    <img
+                                      src={c.image}
+                                      alt={c.name}
+                                      className="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                ))}
+                                {cards.length > 3 && (
+                                  <div
+                                    className="absolute bg-black/60 rounded-full px-1.5 py-0.5 text-[9px] font-bold text-amber-400"
+                                    style={{ bottom: 0, right: 0, zIndex: 10 }}
+                                  >
+                                    +{cards.length - 3}
+                                  </div>
+                                )}
+                              </div>
+                            ) : (
+                              <div className="w-20 h-28 shrink-0 rounded-lg overflow-hidden border border-white/10 shadow-lg group-hover/card:shadow-[#d4af37]/20 transition-all">
+                                <img
+                                  src={card.image}
+                                  alt={card.name}
+                                  className="w-full h-full object-cover opacity-90 group-hover/card:opacity-100 group-hover/card:scale-110 transition-all duration-700"
+                                />
+                              </div>
+                            )}
 
                             {/* Text Info */}
                             <div className="flex-1 min-w-0">
@@ -344,7 +415,9 @@ const JournalPage: React.FC = () => {
                               </div>
 
                               <h3 className="text-lg md:text-xl font-serif font-bold text-indigo-50 mb-2 truncate group-hover/card:text-amber-200 transition-colors">
-                                {card.name}
+                                {isMultiCard
+                                  ? t("reading.card_count", { count: cards.length })
+                                  : card.name}
                               </h3>
 
                               {/* Note Truncated */}

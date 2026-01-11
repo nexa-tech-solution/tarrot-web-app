@@ -29,6 +29,19 @@ export type SpreadMeanings = {
   [key: string]: string;
 };
 
+// Multi-card spread position configuration
+export type SpreadPosition = {
+  id: string; // e.g., "past", "present", "challenge"
+  name: string; // Display: "The Past"
+  description: string; // What position represents
+  gridPosition?: {
+    row: number;
+    col: number;
+  };
+};
+
+export type SpreadLayout = "single" | "grid" | "celtic" | "relationship";
+
 export type SpreadType = {
   id: string;
   title: string;
@@ -38,18 +51,25 @@ export type SpreadType = {
   >;
   bg: string;
   border: string;
-  dataKey: string;
   color: string;
   question: string;
+  // Multi-card spread fields
+  cardCount?: number; // Default: 1
+  positions?: SpreadPosition[]; // Multi-card positions
+  layout?: SpreadLayout; // Default: "single"
+  dataKey?: string; // Keep for 1-card backward compat
 };
 
 export type JournalEntry = {
   id: string;
   date: string;
-  cardId: string;
   spreadId: string;
   note: string;
-  timestamp: number; // Dùng để sort nếu cần
+  timestamp: number;
+  // Support both single and multi-card
+  cardId?: string; // Legacy single card (backward compat)
+  cardIds?: string[]; // Multi-card array
+  cardPositions?: string[]; // Position IDs matching cardIds
 };
 
 export type ThemeStyles = {

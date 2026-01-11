@@ -217,7 +217,14 @@
       "label_note": "Personal Note",
       "placeholder_note": "How do you feel about this message? Write it down for reflection...",
       "btn_close": "Close",
-      "btn_save": "Save & Finish"
+      "btn_save": "Save & Finish",
+      "reveal_all": "Reveal All",
+      "cards_remaining": "{{count}} cards remaining",
+      "position_label": "Position",
+      "tap_to_reveal": "Tap cards to reveal",
+      "you_label": "You",
+      "them_label": "Them",
+      "card_count": "{{count}} cards"
     },
     "recap": {
       "title": "Your Week in Cards",

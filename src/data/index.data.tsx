@@ -6,9 +6,20 @@ import {
   Activity,
   Calendar,
   Wallet,
+  HelpCircle,
+  Users,
+  Grid3X3,
 } from "lucide-react";
 import TARROT_CARDS from "./tarrot.data";
 import i18n from "@/language";
+import {
+  YESNO_POSITIONS_EN,
+  YESNO_POSITIONS_VI,
+  RELATIONSHIP_POSITIONS_EN,
+  RELATIONSHIP_POSITIONS_VI,
+  CELTIC_POSITIONS_EN,
+  CELTIC_POSITIONS_VI,
+} from "./spreads.data";
 
 const AD_CONFIG_VI: AdConfig = {
   enabled: true,
@@ -87,6 +98,46 @@ const SPREAD_TYPES_VI: SpreadType[] = [
     dataKey: "overview",
     question: "Bức tranh tổng thể của năm nay là gì?",
   },
+  // Multi-card spreads
+  {
+    id: "yesno",
+    title: "Có hoặc Không",
+    subtitle: "Câu trả lời nhanh",
+    icon: HelpCircle,
+    color: "text-cyan-400",
+    bg: "bg-cyan-400/10",
+    border: "border-cyan-400/20",
+    cardCount: 2,
+    layout: "grid",
+    positions: YESNO_POSITIONS_VI,
+    question: "Hãy đặt một câu hỏi có hoặc không cho vũ trụ",
+  },
+  {
+    id: "relationship",
+    title: "Mối Quan Hệ",
+    subtitle: "Kết nối tình yêu",
+    icon: Users,
+    color: "text-pink-400",
+    bg: "bg-pink-400/10",
+    border: "border-pink-400/20",
+    cardCount: 6,
+    layout: "relationship",
+    positions: RELATIONSHIP_POSITIONS_VI,
+    question: "Năng lượng giữa bạn và đối phương đang chảy như thế nào?",
+  },
+  {
+    id: "celtic",
+    title: "Celtic Cross",
+    subtitle: "Trải bài sâu 10 lá",
+    icon: Grid3X3,
+    color: "text-violet-400",
+    bg: "bg-violet-400/10",
+    border: "border-violet-400/20",
+    cardCount: 10,
+    layout: "celtic",
+    positions: CELTIC_POSITIONS_VI,
+    question: "Vũ trụ muốn tiết lộ điều gì sâu sắc?",
+  },
 ];
 const SPREAD_TYPES_EN: SpreadType[] = [
   {
@@ -154,6 +205,46 @@ const SPREAD_TYPES_EN: SpreadType[] = [
     border: "border-purple-400/20",
     dataKey: "overview",
     question: "What is the overall picture for this year?",
+  },
+  // Multi-card spreads
+  {
+    id: "yesno",
+    title: "Yes or No",
+    subtitle: "Quick binary answer",
+    icon: HelpCircle,
+    color: "text-cyan-400",
+    bg: "bg-cyan-400/10",
+    border: "border-cyan-400/20",
+    cardCount: 2,
+    layout: "grid",
+    positions: YESNO_POSITIONS_EN,
+    question: "Ask a yes or no question to the universe",
+  },
+  {
+    id: "relationship",
+    title: "Relationship",
+    subtitle: "Love connection reading",
+    icon: Users,
+    color: "text-pink-400",
+    bg: "bg-pink-400/10",
+    border: "border-pink-400/20",
+    cardCount: 6,
+    layout: "relationship",
+    positions: RELATIONSHIP_POSITIONS_EN,
+    question: "How does the energy flow between you and your partner?",
+  },
+  {
+    id: "celtic",
+    title: "Celtic Cross",
+    subtitle: "Deep 10-card reading",
+    icon: Grid3X3,
+    color: "text-violet-400",
+    bg: "bg-violet-400/10",
+    border: "border-violet-400/20",
+    cardCount: 10,
+    layout: "celtic",
+    positions: CELTIC_POSITIONS_EN,
+    question: "What deep insights does the universe reveal?",
   },
 ];
 export const SPREAD_TYPES: SpreadType[] = i18n.language.startsWith("vi")

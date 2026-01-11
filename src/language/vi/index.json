@@ -217,7 +217,14 @@
       "label_note": "Ghi chú cá nhân",
       "placeholder_note": "Bạn cảm thấy thế nào về thông điệp này? Hãy viết lại để chiêm nghiệm sau này...",
       "btn_close": "Đóng",
-      "btn_save": "Lưu & Kết thúc"
+      "btn_save": "Lưu & Kết thúc",
+      "reveal_all": "Lật Tất Cả",
+      "cards_remaining": "Còn {{count}} lá",
+      "position_label": "Vị trí",
+      "tap_to_reveal": "Chạm vào lá bài để lật",
+      "you_label": "Bạn",
+      "them_label": "Họ",
+      "card_count": "{{count}} lá bài"
     },
     "recap": {
       "title": "Tuần Của Bạn Qua Các Lá Bài",
