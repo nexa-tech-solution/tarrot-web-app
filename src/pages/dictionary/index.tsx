@@ -208,6 +208,8 @@ const TarotDetailModal = ({
             src={card.image}
             className="absolute inset-0 w-full h-full object-cover blur-3xl opacity-30 scale-125"
             alt=""
+            loading="lazy"
+            decoding="async"
           />
 
           {/* Main Image Container */}
@@ -217,6 +219,8 @@ const TarotDetailModal = ({
                 src={card.image}
                 alt={card.name}
                 className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
@@ -364,7 +368,7 @@ const DictionaryPage: React.FC = () => {
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-[-20%] left-[-10%] w-[70vw] h-[70vw] rounded-full bg-indigo-900/10 blur-[150px]" />
         <div className="absolute bottom-[-20%] right-[-10%] w-[70vw] h-[70vw] rounded-full bg-purple-900/10 blur-[150px]" />
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-5" />
+        <div className="absolute inset-0 bg-[url('/textures/stardust.png')] opacity-5" />
       </div>
 
       {/* 2. Header */}

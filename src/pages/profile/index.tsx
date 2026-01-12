@@ -1,94 +1,13 @@
 import React from "react";
 import { useAppStore } from "@/zustand/index.zustand";
-import {
-  Award,
-  BookOpen,
-  ChevronRight,
-  Crown,
-  Globe,
-  Heart,
-  LogOut,
-  Moon,
-  Shield,
-  Star,
-  Sun,
-  Trash2,
-  User,
-  Zap,
-} from "lucide-react";
+import { ChevronRight, Crown, LogOut, Moon } from "lucide-react";
 import { useNavigate } from "react-router";
 
 // 1. Import i18n
 import { useTranslation } from "react-i18next";
+import MysticalBackground from "@/components/mystical-background";
 
 // --- SUB-COMPONENT: BACKGROUND ---
-const MysticalBackground = () => (
-  <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none select-none">
-    <div
-      className="absolute inset-0 bg-cover bg-center opacity-30 animate-pulse-slow"
-      style={{
-        backgroundImage:
-          "url('https://i.pinimg.com/originals/64/56/a1/6456a1ea21f4f08401a4a18b58a3c199.gif')",
-      }}
-    />
-    <div className="absolute inset-0 bg-gradient-to-b from-[#090514] via-[#13131f]/90 to-[#090514]" />
-  </div>
-);
-
-// --- SUB-COMPONENT: STAT CARD ---
-const StatCard = ({
-  icon,
-  label,
-  value,
-  colorClass,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string | number;
-  colorClass: string;
-}) => (
-  <div className="bg-[#1a1a24]/60 border border-white/10 rounded-2xl p-4 flex flex-col items-center justify-center backdrop-blur-md shadow-lg hover:-translate-y-1 hover:border-white/20 transition-all group">
-    <div className={`flex items-center gap-1.5 mb-2 opacity-80 ${colorClass}`}>
-      {icon}
-      <span className="text-[10px] font-bold uppercase tracking-widest text-indigo-200/70 group-hover:text-white transition-colors">
-        {label}
-      </span>
-    </div>
-    <div className="text-2xl font-serif font-bold text-white drop-shadow-sm group-hover:scale-110 transition-transform">
-      {value}
-    </div>
-  </div>
-);
-
-// --- SUB-COMPONENT: BADGE ITEM ---
-const BadgeItem = ({
-  icon,
-  label,
-  color,
-  bg,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  color: string;
-  bg: string;
-}) => (
-  <div className="aspect-square bg-[#1a1a24]/60 border border-white/10 rounded-2xl flex flex-col items-center justify-center gap-3 hover:bg-white/10 transition-colors group cursor-pointer relative overflow-hidden">
-    <div
-      className={`absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity bg-gradient-to-br ${color.replace(
-        "text-",
-        "from-"
-      )} to-transparent`}
-    ></div>
-    <div
-      className={`w-12 h-12 rounded-full ${bg} flex items-center justify-center ${color} group-hover:scale-110 group-hover:rotate-12 transition-transform duration-500 shadow-lg`}
-    >
-      {icon}
-    </div>
-    <span className="text-[10px] font-bold text-indigo-100 text-center px-2 z-10">
-      {label}
-    </span>
-  </div>
-);
 
 // --- SUB-COMPONENT: SETTING ROW ---
 const SettingRow = ({
@@ -142,11 +61,6 @@ const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
   const { userProfile } = useAppStore();
 
-  // Hàm chuyển đổi ngôn ngữ
-  const toggleLanguage = () => {
-    const newLang = i18n.language === "vi" ? "en" : "vi";
-    i18n.changeLanguage(newLang);
-  };
   console.log(userProfile);
   return (
     <div className="relative min-h-screen flex flex-col font-sans bg-[#090514] text-white overflow-x-hidden pb-[100px] md:pb-0">

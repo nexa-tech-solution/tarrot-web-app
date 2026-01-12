@@ -12,6 +12,7 @@ import DailyInsights from "@/components/daily-insights";
 import MoonWidget from "@/components/moon-widget";
 import FloatingChatBot from "@/components/floating-chat-bot";
 import { useTranslation } from "react-i18next";
+import MysticalBackground from "@/components/mystical-background";
 
 // --- Sub-Components (Keep in same file or move to separate files) ---
 
@@ -217,7 +218,6 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="flex flex-col px-6 h-full animate-fade-in pb-[80px] md:pb-0 font-sans">
-      {/* 1. Header Section */}
       <UserHeader
         name={userProfile.name}
         isDark={isDark}
@@ -227,9 +227,7 @@ const HomePage: React.FC = () => {
 
       <div className="flex-1 md:px-10 custom-scrollbar pt-2 max-w-[1600px] mx-auto w-full">
         <div className="md:grid md:grid-cols-12 md:gap-8">
-          {/* Left Column (Main Content) */}
           <div className="md:col-span-8 lg:col-span-8 flex flex-col gap-6">
-            {/* 2. Widget Section */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <MoonWidget />
               <DailyInsights />

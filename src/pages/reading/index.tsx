@@ -18,30 +18,7 @@ import type { TarrotCard } from "@/data/tarrot.data";
 import { useTranslation } from "react-i18next";
 import MultiCardGrid from "@/components/multi-card-grid";
 import PositionMeaning from "@/components/position-meaning";
-
-// --- SUB-COMPONENTS ---
-
-const MysticalBackground = () => (
-  <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none select-none">
-    <div
-      className="absolute inset-0 bg-cover bg-center opacity-60 scale-110 animate-pulse-slow"
-      style={{
-        backgroundImage:
-          "url('https://i.pinimg.com/originals/64/56/a1/6456a1ea21f4f08401a4a18b58a3c199.gif')",
-      }}
-    />
-    <div className="absolute inset-0 bg-gradient-to-t from-[#090514] via-[#1a1a2e]/80 to-transparent mix-blend-multiply" />
-    <div className="absolute inset-0 bg-radial-at-c from-transparent to-[#090514]/90" />
-    <div
-      className="absolute inset-0 opacity-30 animate-float-slow"
-      style={{
-        backgroundImage:
-          "radial-gradient(circle, #ffffff 1px, transparent 1px)",
-        backgroundSize: "50px 50px",
-      }}
-    />
-  </div>
-);
+import MysticalBackground from "@/components/mystical-background";
 
 const MysticalButton = ({
   onClick,
@@ -232,8 +209,7 @@ const ReadingPage: React.FC = () => {
         </button>
         <div className="text-center">
           <div className="flex items-center justify-center gap-2 text-[10px] font-bold text-indigo-300/80 uppercase tracking-[0.3em] mb-2">
-            <Compass size={12} className="animate-spin-slow" />{" "}
-            {t("reading.header_session")}
+            <Compass size={12} /> {t("reading.header_session")}
             {isMultiCard && (
               <span className="text-[8px] ml-2 px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-200">
                 {t("reading.card_count", { count: cardCount })}
@@ -356,7 +332,7 @@ const ReadingPage: React.FC = () => {
           >
             {/* Card Back */}
             <div className="absolute inset-0 backface-hidden rounded-[24px] overflow-hidden border-[3px] border-[#d4af37]/40 bg-[#1a1a2e] shadow-[0_10px_40px_-10px_rgba(0,0,0,0.8)] group-hover:shadow-[0_20px_60px_-10px_rgba(99,102,241,0.4)] transition-all">
-              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30 mix-blend-overlay" />
+              <div className="absolute inset-0 bg-[url('/textures/stardust.png')] opacity-30 mix-blend-overlay" />
               <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/50 via-transparent to-[#d4af37]/20 opacity-60" />
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full border border-[#d4af37]/30 flex items-center justify-center">
                 <div className="absolute inset-0 rounded-full bg-[#d4af37]/10 blur-md animate-pulse-slow" />
@@ -386,6 +362,8 @@ const ReadingPage: React.FC = () => {
               <img
                 src={currentCard.image}
                 alt={currentCard.name}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#090514] via-[#090514]/80 to-transparent p-8 pt-24 text-center backdrop-blur-[2px]">
@@ -445,7 +423,7 @@ const ReadingPage: React.FC = () => {
           className={`
             fixed inset-x-0 bottom-0 z-40
             bg-[#120c24]/95 backdrop-blur-3xl border-t border-[#d4af37]/20 rounded-t-[40px]
-            transition-transform duration-700 cubic-bezier(0.16, 1, 0.3, 1) p-6 md:p-10 max-h-[85vh] overflow-y-auto custom-scrollbar
+            transition-transform duration-700 cubic-bezier(0.16, 1, 0.3, 1) p-6 md:p-10 max-h-[85vh] overflow-y-auto meaning-scrollbar
             shadow-[0_-20px_60px_-10px_rgba(0,0,0,0.8)]
             ${showMeaning ? "translate-y-0" : "translate-y-[110%]"}
           `}
@@ -574,62 +552,6 @@ const ReadingPage: React.FC = () => {
           </div>
         </div>
       )}
-
-      {/* CSS Animations */}
-      <style>{`
-        .transform-style-3d { transform-style: preserve-3d; }
-        .backface-hidden { backface-visibility: hidden; }
-        .rotate-y-180 { transform: rotateY(180deg); }
-        .perspective-1500 { perspective: 1500px; }
-
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(212,175,55,0.3); border-radius: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(212,175,55,0.5); }
-
-        @keyframes float-slow {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-20px) scale(1.05); }
-        }
-        .animate-float-slow { animation: float-slow 15s ease-in-out infinite; }
-
-        @keyframes pulse-slow {
-            0%, 100% { opacity: 0.6; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.05); }
-        }
-        .animate-pulse-slow { animation: pulse-slow 8s ease-in-out infinite; }
-
-        @keyframes pulse-fast {
-            0%, 100% { opacity: 0.5; transform: scale(0.95); }
-            50% { opacity: 1; transform: scale(1.05); }
-        }
-        .animate-pulse-fast { animation: pulse-fast 2s ease-in-out infinite; }
-
-        @keyframes spin-slow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .animate-spin-slow { animation: spin-slow 12s linear infinite; }
-
-        @keyframes spin-reverse {
-            from { transform: rotate(360deg); }
-            to { transform: rotate(0deg); }
-        }
-        .animate-spin-reverse { animation: spin-reverse 8s linear infinite; }
-
-        @keyframes shimmer {
-            100% { transform: translateX(200%); }
-        }
-        .animate-shimmer { animation: shimmer 1.5s infinite; }
-
-        @keyframes ping-slow {
-            75%, 100% { transform: scale(2); opacity: 0; }
-        }
-        .animate-ping-slow { animation: ping-slow 3s cubic-bezier(0, 0, 0.2, 1) infinite; }
-
-        .bg-radial-at-c { background-image: radial-gradient(circle at center, var(--tw-gradient-stops)); }
-        .text-shadow-sm { text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-      `}</style>
     </div>
   );
 };

@@ -15,23 +15,7 @@ import Icon from "@/assets/icon.png";
 import { useAppStore } from "@/zustand/index.zustand";
 import { getThemeStyles } from "@/themes/index.theme";
 import { useTranslation } from "react-i18next";
-
-// --- SUB-COMPONENT: BACKGROUND ---
-const MysticalBackground = () => (
-  <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none select-none bg-[#090514]">
-    <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/20 via-[#090514] to-[#090514]" />
-    <div
-      className="absolute top-0 left-0 w-full h-full opacity-30"
-      style={{
-        backgroundImage:
-          "radial-gradient(circle, #ffffff 1px, transparent 1px)",
-        backgroundSize: "40px 40px",
-      }}
-    />
-    <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[100px] animate-pulse-slow" />
-    <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-indigo-600/10 rounded-full blur-[100px]" />
-  </div>
-);
+import MysticalBackground from "@/components/mystical-background";
 
 // --- MAIN COMPONENT ---
 const OnboardingPage: React.FC = () => {

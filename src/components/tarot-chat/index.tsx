@@ -261,7 +261,7 @@ const TarotChat: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex-1 bg-[#0f0f13]/60 border border-white/10 rounded-[2.5rem] backdrop-blur-2xl overflow-hidden flex flex-col shadow-[0_0_50px_rgba(79,70,229,0.1)] relative">
+      <div className="flex-1 bg-[#0f0f13]/60 border border-white/10 rounded-2xl backdrop-blur-2xl overflow-hidden flex flex-col shadow-[0_0_50px_rgba(79,70,229,0.1)] relative">
         <div className="flex-1 p-2 overflow-y-auto custom-scrollbar">
           {session.status === "asking" && (
             <div className="h-full flex flex-col items-center justify-center space-y-8 animate-fade-in text-center">
@@ -415,7 +415,7 @@ const TarotChat: React.FC = () => {
             session.status === "finished") && (
             <div className="max-w-2xl mx-auto space-y-12 animate-fade-in-up">
               {/* Question Banner */}
-              <div className="relative p-6 rounded-3xl bg-indigo-500/5 border border-indigo-500/20 text-center overflow-hidden">
+              <div className="relative p-6 rounded-2xl bg-indigo-500/5 border border-indigo-500/20 text-center overflow-hidden">
                 <div className="absolute top-0 right-0 p-2 opacity-10">
                   <Quote size={40} />
                 </div>
@@ -458,7 +458,7 @@ const TarotChat: React.FC = () => {
                 <div className="relative">
                   <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-px h-10 bg-gradient-to-b from-white/0 to-indigo-500/50" />
 
-                  <div className="bg-gradient-to-b from-white/[0.04] to-transparent border border-white/10 rounded-[2.5rem] overflow-hidden shadow-2xl">
+                  <div className="bg-gradient-to-b from-white/[0.04] to-transparent border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
                     <div className="p-6 md:p-10">
                       <div className="flex items-center gap-4 mb-8">
                         <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20 shadow-inner">

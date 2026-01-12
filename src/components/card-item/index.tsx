@@ -25,6 +25,8 @@ const CardItem: React.FC<Props> = ({ card }) => {
             <img
               src={card.image}
               alt={card.name}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-4">
@@ -88,13 +90,6 @@ const CardItem: React.FC<Props> = ({ card }) => {
           </div>
         </div>
       </div>
-
-      <style>{`
-        .perspective-1000 { perspective: 1000px; }
-        .transform-style-preserve-3d { transform-style: preserve-3d; }
-        .backface-hidden { backface-visibility: hidden; }
-        .rotate-y-180 { transform: rotateY(180deg); }
-      `}</style>
     </div>
   );
 };

@@ -18,28 +18,7 @@ import { SPREAD_TYPES, TAROT_DECK } from "@/data/index.data";
 import { useAppStore } from "@/zustand/index.zustand";
 import type { JournalEntry } from "@/types/index.type";
 import { useTranslation } from "react-i18next";
-
-// --- SUB-COMPONENT: BACKGROUND ---
-const MysticalBackground = () => (
-  <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none select-none">
-    <div
-      className="absolute inset-0 bg-cover bg-center opacity-40 animate-pulse-slow"
-      style={{
-        backgroundImage:
-          "url('https://images.unsplash.com/photo-1465101162946-4377e57745c3?q=80&w=2948&auto=format&fit=crop')",
-      }}
-    />
-    <div className="absolute inset-0 bg-gradient-to-b from-[#090514] via-[#0f0c29]/90 to-[#090514]" />
-    <div
-      className="absolute inset-0 opacity-20"
-      style={{
-        backgroundImage:
-          "radial-gradient(circle, #ffffff 1px, transparent 1px)",
-        backgroundSize: "30px 30px",
-      }}
-    />
-  </div>
-);
+import MysticalBackground from "@/components/mystical-background";
 
 // --- SUB-COMPONENT: EMPTY STATE ---
 const EmptyJournal = ({ onNavigate }: { onNavigate: () => void }) => {
@@ -165,7 +144,9 @@ const JournalDetailModal = ({
             </div>
             <h2 className="text-2xl md:text-3xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] to-amber-200 mb-2">
               {isMultiCard
-                ? `${cards.length} ${t("reading.card_count", { count: cards.length }).replace(/\d+\s*/, "")}`
+                ? `${cards.length} ${t("reading.card_count", {
+                    count: cards.length,
+                  }).replace(/\d+\s*/, "")}`
                 : card.name}
             </h2>
             {isMultiCard && (
@@ -281,7 +262,8 @@ const JournalPage: React.FC = () => {
 
             <div className="space-y-16">
               {journal.map((item, idx) => {
-                const { card, cards, spread, isMultiCard } = getJournalItemInfo(item);
+                const { card, cards, spread, isMultiCard } =
+                  getJournalItemInfo(item);
                 const isEven = idx % 2 === 0;
 
                 return (
@@ -355,25 +337,27 @@ const JournalPage: React.FC = () => {
                             {/* Mini Tarot Image(s) */}
                             {isMultiCard ? (
                               <div className="relative w-20 h-28 shrink-0">
-                                {cards.slice(0, 3).map((c: any, cIdx: number) => (
-                                  <div
-                                    key={cIdx}
-                                    className="absolute rounded-lg overflow-hidden border border-white/10 shadow-lg"
-                                    style={{
-                                      width: "60px",
-                                      height: "84px",
-                                      top: `${cIdx * 4}px`,
-                                      left: `${cIdx * 8}px`,
-                                      zIndex: 3 - cIdx,
-                                    }}
-                                  >
-                                    <img
-                                      src={c.image}
-                                      alt={c.name}
-                                      className="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                ))}
+                                {cards
+                                  .slice(0, 3)
+                                  .map((c: any, cIdx: number) => (
+                                    <div
+                                      key={cIdx}
+                                      className="absolute rounded-lg overflow-hidden border border-white/10 shadow-lg"
+                                      style={{
+                                        width: "60px",
+                                        height: "84px",
+                                        top: `${cIdx * 4}px`,
+                                        left: `${cIdx * 8}px`,
+                                        zIndex: 3 - cIdx,
+                                      }}
+                                    >
+                                      <img
+                                        src={c.image}
+                                        alt={c.name}
+                                        className="w-full h-full object-cover"
+                                      />
+                                    </div>
+                                  ))}
                                 {cards.length > 3 && (
                                   <div
                                     className="absolute bg-black/60 rounded-full px-1.5 py-0.5 text-[9px] font-bold text-amber-400"
@@ -416,7 +400,9 @@ const JournalPage: React.FC = () => {
 
                               <h3 className="text-lg md:text-xl font-serif font-bold text-indigo-50 mb-2 truncate group-hover/card:text-amber-200 transition-colors">
                                 {isMultiCard
-                                  ? t("reading.card_count", { count: cards.length })
+                                  ? t("reading.card_count", {
+                                      count: cards.length,
+                                    })
                                   : card.name}
                               </h3>
 

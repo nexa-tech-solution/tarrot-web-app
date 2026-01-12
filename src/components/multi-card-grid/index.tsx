@@ -98,7 +98,7 @@ const MultiCardGrid: React.FC<MultiCardGridProps> = ({
               >
                 {/* Card Back */}
                 <div className="absolute inset-0 backface-hidden rounded-[24px] overflow-hidden border-[3px] border-[#d4af37]/40 bg-[#1a1a2e] shadow-[0_10px_40px_-10px_rgba(0,0,0,0.8)] group-hover:shadow-[0_20px_60px_-10px_rgba(99,102,241,0.4)] transition-all">
-                  <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-30 mix-blend-overlay" />
+                  <div className="absolute inset-0 bg-[url('/textures/stardust.png')] opacity-30 mix-blend-overlay" />
                   <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/50 via-transparent to-[#d4af37]/20 opacity-60" />
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full border border-[#d4af37]/30 flex items-center justify-center">
                     <div className="absolute inset-0 rounded-full bg-[#d4af37]/10 blur-md animate-pulse-slow" />
@@ -125,13 +125,15 @@ const MultiCardGrid: React.FC<MultiCardGridProps> = ({
                     ${isRevealed ? "opacity-100" : "opacity-0 rotate-y-180"}
                   `}
                 >
-                  {card && (
-                    <>
-                      <img
-                        src={card.image}
-                        alt={card.name}
-                        className="w-full h-full object-cover"
-                      />
+                    {card && (
+                      <>
+                        <img
+                          src={card.image}
+                          alt={card.name}
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full h-full object-cover"
+                        />
                       {/* Position label overlay */}
                       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2">
                         <p className="text-[8px] font-bold uppercase tracking-wider text-amber-400 text-center truncate">

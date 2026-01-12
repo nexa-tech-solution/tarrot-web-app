@@ -47,3 +47,116 @@
   background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
 }
+
+/* ===== Performance Optimized Animations ===== */
+
+/* Mystical Background - Replaces heavy GIF */
+.mystical-bg {
+  background: linear-gradient(135deg, #090514 0%, #1a1a2e 25%, #0f0a1f 50%, #1a1a2e 75%, #090514 100%);
+  background-size: 400% 400%;
+  animation: cosmic-drift 20s ease infinite;
+}
+
+@keyframes cosmic-drift {
+  0%, 100% { background-position: 0% 50%; }
+  25% { background-position: 50% 100%; }
+  50% { background-position: 100% 50%; }
+  75% { background-position: 50% 0%; }
+}
+
+/* Floating particles overlay */
+.mystical-particles {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: particles-float 15s ease-in-out infinite;
+}
+
+@keyframes particles-float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-10px) scale(1.02); }
+}
+
+/* 3D Card Transform Utilities */
+.perspective-1000 { perspective: 1000px; }
+.perspective-1500 { perspective: 1500px; }
+.transform-style-3d { transform-style: preserve-3d; }
+.transform-style-preserve-3d { transform-style: preserve-3d; }
+.backface-hidden { backface-visibility: hidden; }
+.rotate-y-180 { transform: rotateY(180deg); }
+
+/* Scrollbar for meaning sheet */
+.meaning-scrollbar::-webkit-scrollbar { width: 6px; }
+.meaning-scrollbar::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
+.meaning-scrollbar::-webkit-scrollbar-thumb { background: rgba(212,175,55,0.3); border-radius: 10px; }
+.meaning-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(212,175,55,0.5); }
+
+/* Consolidated Keyframe Animations */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.05); }
+}
+.animate-float-slow { animation: float-slow 15s ease-in-out infinite; }
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+.animate-pulse-slow { animation: pulse-slow 8s ease-in-out infinite; }
+
+@keyframes pulse-fast {
+  0%, 100% { opacity: 0.5; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+.animate-pulse-fast { animation: pulse-fast 2s ease-in-out infinite; }
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow { animation: spin-slow 12s linear infinite; }
+
+@keyframes spin-reverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+.animate-spin-reverse { animation: spin-reverse 8s linear infinite; }
+
+@keyframes shimmer {
+  100% { transform: translateX(200%); }
+}
+.animate-shimmer { animation: shimmer 1.5s infinite; }
+
+@keyframes ping-slow {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+.animate-ping-slow { animation: ping-slow 3s cubic-bezier(0, 0, 0.2, 1) infinite; }
+
+@keyframes fade-in-down {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-down { animation: fade-in-down 0.6s ease-out forwards; }
+
+/* Utility classes */
+.bg-radial-at-c { background-image: radial-gradient(circle at center, var(--tw-gradient-stops)); }
+.text-shadow-sm { text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+
+/* ===== Accessibility: Reduced Motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .mystical-bg {
+    animation: none;
+    background-position: 50% 50%;
+  }
+
+  .mystical-particles {
+    animation: none;
+  }
+}
