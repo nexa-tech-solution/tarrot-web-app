@@ -508,6 +508,8 @@ const ReadingPage: React.FC = () => {
                 <button
                   onClick={() => {
                     setShowMeaning(false);
+                    setNote("");
+                    setShowOpenButton(false);
                     setTimeout(() => setCurrentCard(null), 300);
                   }}
                   className="px-6 py-5 rounded-2xl border border-white/10 text-indigo-300 font-bold uppercase text-xs tracking-wider hover:bg-white/5 transition-colors"
