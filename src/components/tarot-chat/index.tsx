@@ -148,12 +148,12 @@ const TarotChat: React.FC = () => {
   };
 
   const startAd = () => {
-    //@ts-expect-error no check
-    window.ReactNativeWebView.postMessage(
-      JSON.stringify({
-        type: "SHOW_REWARDED",
-      })
-    );
+    // window.ReactNativeWebView.postMessage(
+    //   JSON.stringify({
+    //     type: "SHOW_REWARDED",
+    //   })
+    // );
+    startProgress();
   };
 
   const startProgress = () => {
