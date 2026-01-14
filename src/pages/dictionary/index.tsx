@@ -104,7 +104,7 @@ const TarotCardItem = ({
   return (
     <div
       onClick={onClick}
-      className="group relative cursor-pointer w-full aspect-[2/3] rounded-2xl overflow-hidden border border-white/10 bg-[#18181b] shadow-lg transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-500/20 hover:-translate-y-1"
+      className="group relative cursor-pointer w-full aspect-[2/3] rounded-2xl overflow-hidden border border-white/10 bg-[#18181b] shadow-lg transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-500/20 hover:-translate-y-1 active:scale-95"
     >
       {/* Background Image with Zoom Effect */}
       <div className="absolute inset-0 overflow-hidden">
@@ -121,7 +121,7 @@ const TarotCardItem = ({
       {/* Card Content */}
       <div className="absolute inset-0 p-5 flex flex-col justify-between">
         {/* Top Badges */}
-        <div className="flex justify-between items-start opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform -translate-y-2 group-hover:translate-y-0">
+        <div className="flex justify-between items-start opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 transform translate-y-0 md:-translate-y-2 md:group-hover:translate-y-0">
           <span className="px-2 py-1 bg-black/60 backdrop-blur-sm rounded text-[10px] font-bold tracking-widest text-white/80 border border-white/10">
             {meta.numberDisplay}
           </span>
@@ -176,7 +176,7 @@ const TarotDetailModal = ({
   if (!card) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center md:p-6">
       {/* Backdrop */}
       <div
         className={`absolute inset-0 bg-black/80 backdrop-blur-xl transition-opacity duration-300 ${
@@ -187,7 +187,7 @@ const TarotDetailModal = ({
 
       {/* Modal Content */}
       <div
-        className={`relative w-full max-w-5xl h-[85vh] bg-[#121214] border border-white/10 rounded-3xl overflow-hidden flex flex-col md:flex-row shadow-2xl transition-all duration-500 ${
+        className={`relative w-screen h-[100dvh] md:w-full md:max-w-5xl md:h-[85vh] bg-[#121214] md:border border-white/10 rounded-none md:rounded-3xl overflow-hidden flex flex-col md:flex-row shadow-2xl transition-all duration-500 ${
           isVisible
             ? "scale-100 opacity-100 translate-y-0"
             : "scale-95 opacity-0 translate-y-10"
@@ -196,13 +196,13 @@ const TarotDetailModal = ({
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-50 p-2 rounded-full bg-black/20 text-white/60 hover:bg-white hover:text-black hover:scale-110 transition-all border border-white/5 backdrop-blur-md"
+          className="absolute top-6 right-6 z-50 p-2 rounded-full bg-black/20 text-white/60 hover:bg-white hover:text-black hover:scale-110 transition-all border border-white/5 backdrop-blur-md"
         >
           <X size={20} />
         </button>
 
         {/* LEFT: Image Section (Mobile: Hidden height, Desktop: Full height) */}
-        <div className="relative w-full md:w-[40%] h-48 md:h-full flex-shrink-0 bg-black overflow-hidden">
+        <div className="relative w-full md:w-[40%] h-72 md:h-full flex-shrink-0 bg-black overflow-hidden">
           {/* Blur Background */}
           <img
             src={card.image}
@@ -363,7 +363,7 @@ const DictionaryPage: React.FC = () => {
   ];
 
   return (
-    <div className="relative flex flex-col h-screen bg-[#050505] text-slate-200 overflow-hidden font-sans selection:bg-amber-500/30">
+    <div className="relative flex flex-col w-screen h-screen bg-[#050505] text-slate-200 overflow-hidden font-sans selection:bg-amber-500/30">
       {/* 1. Ambient Background */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-[-20%] left-[-10%] w-[70vw] h-[70vw] rounded-full bg-indigo-900/10 blur-[150px]" />
@@ -372,8 +372,8 @@ const DictionaryPage: React.FC = () => {
       </div>
 
       {/* 2. Header */}
-      <div className="flex-none z-30 px-4 md:px-8 py-5 bg-[#050505]/80 backdrop-blur-xl border-b border-white/5">
-        <div className="max-w-7xl mx-auto w-full space-y-5">
+      <div className="z-30 px-4 md:px-12 py-5 md:py-8 bg-[#050505]/80 backdrop-blur-xl border-b border-white/5">
+        <div className="mx-auto w-full space-y-5">
           {/* Top Row */}
           <div className="flex items-center justify-between">
             <button
@@ -385,7 +385,7 @@ const DictionaryPage: React.FC = () => {
               </div>
               <span className="font-medium hidden md:inline">Quay lại</span>
             </button>
-            <h1 className="text-2xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-100">
+            <h1 className="text-2xl md:text-5xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-yellow-100">
               {t("dictionary.dictionary_title")}
             </h1>
             <div className="w-10 md:w-20" /> {/* Spacer */}
@@ -394,16 +394,16 @@ const DictionaryPage: React.FC = () => {
           {/* Search & Filter Bar */}
           <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
             {/* Search Input */}
-            <div className="relative group w-full md:max-w-md">
+            <div className="relative group w-full md:max-w-2xl">
               <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500/30 to-purple-500/30 rounded-xl blur opacity-0 group-focus-within:opacity-100 transition-duration-500" />
               <div className="relative flex items-center bg-[#121214] border border-white/10 rounded-xl group-focus-within:border-indigo-500/50 transition-colors">
-                <Search className="absolute left-3 text-slate-500" size={18} />
+                <Search className="absolute left-3 md:left-4 text-slate-500 w-5 h-5 md:w-6 md:h-6" />
                 <input
                   type="text"
                   placeholder={t("dictionary.search_placeholder")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-transparent text-sm text-slate-200 placeholder:text-slate-600 outline-none rounded-xl"
+                  className="w-full pl-10 md:pl-12 pr-4 py-2.5 md:py-4 bg-transparent text-sm md:text-lg text-slate-200 placeholder:text-slate-600 outline-none rounded-xl"
                 />
               </div>
             </div>
@@ -415,7 +415,7 @@ const DictionaryPage: React.FC = () => {
                   <button
                     key={f.id}
                     onClick={() => setActiveFilter(f.id)}
-                    className={`whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-bold border transition-all duration-300 ${
+                    className={`whitespace-nowrap px-4 py-1.5 md:px-6 md:py-2.5 rounded-full text-xs md:text-sm font-bold border transition-all duration-300 ${
                       activeFilter === f.id
                         ? "bg-slate-100 text-black border-white shadow-[0_0_15px_rgba(255,255,255,0.2)]"
                         : "bg-white/5 text-slate-400 border-white/5 hover:bg-white/10 hover:border-white/20"
@@ -432,7 +432,7 @@ const DictionaryPage: React.FC = () => {
 
       {/* 3. Grid Content */}
       <div className="flex-1 overflow-y-auto custom-scrollbar p-4 md:p-8 relative z-10">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-[1600px] mx-auto w-full">
           {filteredCards.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 lg:gap-8 pb-20">
               {filteredCards.map((card) => (
