@@ -72,7 +72,7 @@ const TarotChat: React.FC = () => {
     // Lưu lại: Ngày hôm nay, số lượt cũ + 1
     localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ date: today, count: count + 1 })
+      JSON.stringify({ date: today, count: count + 1 }),
     );
     // Cập nhật lại state UI
     setIsFreeTurn(false);
@@ -148,12 +148,13 @@ const TarotChat: React.FC = () => {
   };
 
   const startAd = () => {
-    // window.ReactNativeWebView.postMessage(
-    //   JSON.stringify({
-    //     type: "SHOW_REWARDED",
-    //   })
-    // );
-    startProgress();
+    //@ts-expect-error no check
+    window.ReactNativeWebView.postMessage(
+      JSON.stringify({
+        type: "SHOW_REWARDED",
+      }),
+    );
+    // startProgress();
   };
 
   const startProgress = () => {
@@ -181,7 +182,7 @@ const TarotChat: React.FC = () => {
     const result = await getTarotInterpretation(
       session.question,
       cards,
-      i18n.language.startsWith("vi") ? "vi" : "en"
+      i18n.language.startsWith("vi") ? "vi" : "en",
     );
     setSession((prev) => ({
       ...prev,
@@ -438,15 +439,15 @@ const TarotChat: React.FC = () => {
                             i === 0
                               ? "bg-indigo-500/10 border-indigo-500/30 text-indigo-300"
                               : i === 1
-                              ? "bg-purple-500/10 border-purple-500/30 text-purple-300"
-                              : "bg-amber-500/10 border-amber-500/30 text-amber-300"
+                                ? "bg-purple-500/10 border-purple-500/30 text-purple-300"
+                                : "bg-amber-500/10 border-amber-500/30 text-amber-300"
                           } uppercase tracking-widest`}
                         >
                           {i === 0
                             ? t("chat.past")
                             : i === 1
-                            ? t("chat.present")
-                            : t("chat.future")}
+                              ? t("chat.present")
+                              : t("chat.future")}
                         </span>
                       </div>
                       <CardItem card={card} />
